@@ -181,17 +181,6 @@
       background: var(--gold);
       color: var(--black);
     }
-    .btn-admin {
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      color: var(--black);
-      font-weight: 800;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
-    }
-    .btn-admin:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.7);
-    }
 
     /* SECTIONS */
     section { padding: 60px 0; }
@@ -230,19 +219,19 @@
     }
     .service-image {
       width: 100%;
-      height: 160px;
+      height: 160px; /* REDUCED from 180px */
       object-fit: cover;
     }
-    .service-content { padding: 16px; }
+    .service-content { padding: 16px; } /* REDUCED from 20px */
     .service-card h3 {
-      font-size: 1rem;
+      font-size: 1rem; /* REDUCED from 1.1rem */
       margin-bottom: 6px;
       text-transform: uppercase;
       color: var(--white);
     }
     .service-description {
       color: var(--gray-light);
-      font-size: 0.8rem;
+      font-size: 0.8rem; /* REDUCED from 0.85rem */
       margin-bottom: 12px;
       line-height: 1.4;
     }
@@ -267,192 +256,62 @@
     .service-price {
       font-weight: 700;
       color: var(--gold);
-      font-size: 1.1rem;
+      font-size: 1.1rem; /* REDUCED from 1.2rem */
     }
     .service-card .btn {
       width: 100%;
       justify-content: center;
-      padding: 8px;
-      font-size: 0.8rem;
+      padding: 8px; /* REDUCED from 10px */
+      font-size: 0.8rem; /* REDUCED from 0.85rem */
     }
 
-    /* ✅ NUEVA SECCIÓN PROFESIONALES - EFECTO GLOW CON MOUSE */
+    /* PROFESSIONALS */
     .professionals-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      padding: 20px 0;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
     }
-    
-    .pro-card {
-      position: relative;
-      width: 100%;
-      max-width: 320px;
-      margin: 0 auto;
-      border-radius: 20px;
-      padding: 3px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+    .professional-card {
+      background: var(--black-card);
+      border-radius: 10px;
       overflow: hidden;
-      cursor: pointer;
-      transition: var(--transition);
       border: 1px solid rgba(212, 175, 55, 0.3);
     }
-    
-    .pro-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light), #9b7653, var(--gold));
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: 0;
-      pointer-events: none;
-    }
-    
-    .pro-card:hover::before {
-      opacity: 0.15;
-    }
-    
-    .pro-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
-      border-color: var(--gold);
-    }
-    
-    .pro-glow {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.6) 0%, rgba(212, 175, 55, 0) 70%);
-      filter: blur(40px);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-      z-index: 1;
-      transform: translate(-50%, -50%);
-    }
-    
-    .pro-card.active .pro-glow {
-      opacity: 1;
-    }
-    
-    .pro-content {
-      position: relative;
-      z-index: 2;
-      background: var(--black-card);
-      border-radius: 17px;
-      padding: 25px 20px;
-      text-align: center;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .pro-avatar {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
+    .professional-image {
+      width: 100%;
+      height: 260px;
       object-fit: cover;
-      border: 4px solid var(--gold);
-      margin-bottom: 18px;
-      transition: var(--transition);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
     }
-    
-    .pro-card:hover .pro-avatar {
-      transform: scale(1.08);
-      border-color: var(--gold-light);
-      box-shadow: 0 12px 35px rgba(212, 175, 55, 0.6);
-    }
-    
-    .pro-name {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 5px;
+    .professional-body { padding: 18px; }
+    .professional-card h3 {
+      font-size: 1.2rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      margin-bottom: 5px;
     }
-    
-    .pro-specialty {
+    .professional-card .specialty {
       color: var(--gold);
       font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
     }
-    
-    .pro-desc {
+    .professional-card p {
       color: var(--gray-light);
       font-size: 0.85rem;
+      margin-bottom: 12px;
       line-height: 1.5;
-      margin-bottom: 18px;
-      padding: 0 10px;
     }
-    
-    .pro-contact {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      width: 100%;
-      margin-bottom: 15px;
-    }
-    
-    .pro-contact-item {
+    .contact-item {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
+      gap: 10px;
+      margin: 6px 0;
       color: var(--gray-light);
       font-size: 0.85rem;
     }
-    
-    .pro-contact-item i {
+    .contact-item i {
       color: var(--gold);
-      font-size: 1rem;
       width: 18px;
     }
-    
-    .pro-social {
-      display: flex;
-      gap: 15px;
-      margin-top: 10px;
-    }
-    
-    .pro-social a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(212, 175, 55, 0.15);
-      color: var(--gold);
-      font-size: 1.1rem;
-      text-decoration: none;
-      transition: var(--transition);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-    }
-    
-    .pro-social a:hover {
-      background: var(--gold);
-      color: var(--black);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.5);
-    }
-    
-    .pro-social .fa-whatsapp:hover { background: #25D366; border-color: #25D366; color: white; }
-    .pro-social .fa-facebook-f:hover { background: #1877F2; border-color: #1877F2; color: white; }
-    .pro-social .fa-instagram:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: transparent; color: white; }
 
     /* TESTIMONIALS SECTION */
     .testimonials-grid {
@@ -741,7 +600,7 @@
       margin-bottom: 25px;
     }
     .footer-logo img {
-      height: 110px;
+      height: 110px; /* AUMENTADO de 80px a 110px */
       width: auto;
       object-fit: contain;
       display: block;
@@ -834,21 +693,6 @@
       transform: translateY(-2px);
     }
 
-    /* ADMIN ACCESS BUTTON */
-    .admin-access {
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .admin-access .btn {
-      font-size: 0.8rem;
-      padding: 8px 20px;
-      opacity: 0.8;
-    }
-    .admin-access .btn:hover {
-      opacity: 1;
-    }
-
     /* WHATSAPP FLOAT */
     .whatsapp-float {
       position: fixed;
@@ -878,7 +722,7 @@
       box-shadow: 0 5px 20px rgba(37, 211, 102, 0.6);
     }
 
-    /* MODAL DE ADVERTENCIA */
+    /* MODAL DE ADVERTENCIA - NUEVO */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -1031,8 +875,6 @@
       .social-link { width: 45px; height: 45px; font-size: 1.3rem; }
       .modal-content { padding: 25px 20px; margin: 10px; }
       .modal-title { font-size: 1.25rem; }
-      .pro-avatar { width: 95px; height: 95px; }
-      .pro-name { font-size: 1.15rem; }
     }
 </style>
 </head>
@@ -1218,59 +1060,40 @@
     </div>
   </section>
 
-  <!-- ✅ NUEVA SECCIÓN PROFESIONALES CON EFECTO GLOW -->
+  <!-- Professionals -->
   <section id="profesionales" style="background: var(--black-light);">
     <div class="container">
       <div class="section-title">
         <h2>Profesionales</h2>
-        <p>Conoce a nuestro equipo experto</p>
       </div>
       
       <div class="professionals-grid">
-        <!-- Profesional 1: Kennedy -->
-        <div class="pro-card" id="pro1">
-          <div class="pro-glow"></div>
-          <div class="pro-content">
-            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400" alt="Kennedy Ramirez" class="pro-avatar">
-            <h3 class="pro-name">Kennedy Ramirez</h3>
-            <p class="pro-specialty">Barbero Profesional</p>
-            <p class="pro-desc">Especialista en cortes modernos, colorimetría, ondulación y tratamientos faciales con más de 8 años de experiencia.</p>
-            <div class="pro-contact">
-              <div class="pro-contact-item">
-                <i class="fas fa-phone"></i>
-                <span>+51 977 355 999</span>
-              </div>
-              <div class="pro-contact-item">
-                <i class="fas fa-envelope"></i>
-                <span>kennedyramirez27@gmail.com</span>
-              </div>
+        <div class="professional-card">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800" alt="Kennedy" class="professional-image">
+          <div class="professional-body">
+            <h3>Kennedy Ramirez</h3>
+            <div class="specialty">Barbero Profesional</div>
+            <p>Especialista en cortes, colorimetría, ondulación y tratamientos faciales</p>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>+51 977 355 999</span>
             </div>
-            <div class="pro-social">
-              <a href="https://wa.me/51977355999" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-              <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-              <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>kennedyramirez27@gmail.com</span>
             </div>
           </div>
         </div>
 
-        <!-- Profesional 2: Ruth -->
-        <div class="pro-card" id="pro2">
-          <div class="pro-glow"></div>
-          <div class="pro-content">
-            <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400" alt="Ruth Elizabeth" class="pro-avatar">
-            <h3 class="pro-name">Ruth Elizabeth Ñt</h3>
-            <p class="pro-specialty">Estilista Profesional</p>
-            <p class="pro-desc">Experta en cortes femeninos, colorimetría avanzada y ondulaciones. Creatividad y precisión en cada estilo.</p>
-            <div class="pro-contact">
-              <div class="pro-contact-item">
-                <i class="fas fa-phone"></i>
-                <span>+51 979 014 679</span>
-              </div>
-            </div>
-            <div class="pro-social">
-              <a href="https://wa.me/51979014679" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-              <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-              <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <div class="professional-card">
+          <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800" alt="Ruth" class="professional-image">
+          <div class="professional-body">
+            <h3>Ruth Elizabeth Ñt</h3>
+            <div class="specialty">Estilista Profesional</div>
+            <p>Especialista en cortes, colorimetría y ondulaciones</p>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>979 014 679</span>
             </div>
           </div>
         </div>
@@ -1532,13 +1355,6 @@
         &copy; <span id="year"></span> TODOS LOS DERECHOS RESERVADOS<br>
         <a href="https://bermat-mods.onrender.com/" target="_blank" class="credits">© 𝐁𝐄𝐑𝐌𝐀𝐓-𝐂𝐎𝐃𝐄𖤍</a>
       </div>
-      
-      <!-- ✅ BOTÓN DE ACCESO ADMINISTRATIVO -->
-      <div class="admin-access">
-        <a href="vercel/Administrador.html" class="btn btn-admin" title="Acceso exclusivo para administradores">
-          <i class="fas fa-user-shield"></i> 𝐀𝐂𝐂𝐄𝐒𝐎 𝐀𝐃𝐌𝐈𝐍
-        </a>
-      </div>
     </div>
   </footer>
 
@@ -1725,29 +1541,6 @@
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('confirmation').classList.remove('active');
-      
-      // ✅ EFECTO GLOW CON MOUSE PARA TARJETAS DE PROFESIONALES
-      const proCards = document.querySelectorAll('.pro-card');
-      
-      proCards.forEach(card => {
-        const glow = card.querySelector('.pro-glow');
-        
-        card.addEventListener('mouseenter', () => {
-          card.classList.add('active');
-        });
-        
-        card.addEventListener('mouseleave', () => {
-          card.classList.remove('active');
-        });
-        
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          glow.style.left = x + 'px';
-          glow.style.top = y + 'px';
-        });
-      });
     });
     
     // Keyboard support for modal
