@@ -362,7 +362,7 @@
 
 <div align="center">
 
-![Logo BerMat-Code](https://i.postimg.cc/25vB9Z3y/17749596456a35.png)
+![Logo BerMat-Code](https://i.postimg.cc/x1ygbZVN/Screenshot-20260225-185304.jpg)
 
 # 🏆 By BerMat-Code 🏆
 
