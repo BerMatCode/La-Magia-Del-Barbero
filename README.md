@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.postimg.cc/zXxYxFxN/1776165974884-removebg-preview.png" width="200"/>
+  <img src="[https://i.postimg.cc/zXxYxFxN/1776165974884-removebg-preview.png](https://i.postimg.cc/gJRm0jRc/17749596456a35.png)" width="200"/>
 </p>
 
 <h1 align="center">💈 LA MAGIA DEL BARBERO 💈</h1>
