@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.postimg.cc/gJRm0jRc/17749596456a35.png" width="260" style="filter: drop-shadow(0px 0px 15px #D4AF37);"/>
+  <img src="https://raw.githubusercontent.com/BerMatMods/La-Magia-Del-Barbero/main/logo-web.png" width="260"/>
 </p>
 
 <h1 align="center">💈 LA MAGIA DEL BARBERO 💈</h1>
@@ -44,10 +44,10 @@
 
 ---
 
-## 📸 PREVIEW DEL SISTEMA
+## 📸 VISTA PREVIA DEL SISTEMA
 
 <p align="center">
-  <img src="https://i.postimg.cc/Hs1LGmDV/1776171893e71a.png" width="95%" style="border-radius: 10px;"/>
+  <img src="https://raw.githubusercontent.com/BerMatMods/La-Magia-Del-Barbero/main/logo-web.png" width="90%"/>
 </p>
 
 ---
@@ -72,9 +72,7 @@
 
 <p align="center">
 
-![HTML5](https://skillicons.dev/icons?i=html)
-![CSS3](https://skillicons.dev/icons?i=css)
-![JS](https://skillicons.dev/icons?i=js)
+<img src="https://skillicons.dev/icons?i=html,css,js" />
 
 </p>
 
