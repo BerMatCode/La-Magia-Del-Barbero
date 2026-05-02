@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<!-- ✅ CELESTE SUAVE EN BARRA CHROME -->
 <meta name="theme-color" content="#B3E5FC">
-<title>Administrador</title>
+<title>Administrador - La Magia Del Barbero</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet"/>
@@ -38,9 +37,7 @@
   --text-gray: #607D8B;
   --transition: all 0.3s ease;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
   font-family: 'Patrick Hand', cursive;
   background: var(--bg);
@@ -52,19 +49,14 @@ body {
   overflow-x: hidden;
 }
 
-/* ===========================
-   LOGIN — CELESTE SUAVE
-   =========================== */
+/* LOGIN */
 .login-overlay {
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background: linear-gradient(160deg, #81D4FA, #4FC3F7, #29B6F6, #4FC3F7, #81D4FA);
   background-size: 600% 600%;
   animation: gradientMove 12s ease infinite;
   z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   transition: var(--transition);
 }
 @keyframes gradientMove {
@@ -80,8 +72,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 24px;
   padding: 45px 38px;
-  max-width: 400px;
-  width: 90%;
+  max-width: 400px; width: 90%;
   text-align: center;
   box-shadow: 0 30px 80px rgba(0,0,0,0.15);
   animation: cardEntrance 0.5s ease;
@@ -90,35 +81,24 @@ body {
   from { opacity: 0; transform: translateY(35px) scale(0.92); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
-
 .login-logo {
   width: 78px; height: 78px;
   background: rgba(255,255,255,0.2);
   border: 2px solid rgba(255,255,255,0.5);
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-  font-size: 2rem;
-  color: #FFF;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 2rem; color: #FFF;
 }
 .login-card h2 { font-size: 1.6rem; color: #FFF; margin-bottom: 5px; letter-spacing: 2px; }
 .login-card .login-sub { color: rgba(255,255,255,0.9); font-size: 0.98rem; margin-bottom: 28px; }
-
 .login-input {
-  width: 100%;
-  padding: 14px 18px;
+  width: 100%; padding: 14px 18px;
   background: rgba(255,255,255,0.2);
   border: 2px solid rgba(255,255,255,0.3);
-  border-radius: 13px;
-  color: #FFF;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 1.1rem;
-  text-align: center;
-  letter-spacing: 4px;
-  transition: var(--transition);
-  margin-bottom: 18px;
+  border-radius: 13px; color: #FFF;
+  font-family: 'Patrick Hand', cursive; font-size: 1.1rem;
+  text-align: center; letter-spacing: 4px;
+  transition: var(--transition); margin-bottom: 18px;
 }
 .login-input::placeholder { color: rgba(255,255,255,0.5); }
 .login-input:focus { outline: none; border-color: #FFF; box-shadow: 0 0 20px rgba(255,255,255,0.3); }
@@ -128,175 +108,109 @@ body {
   25% { transform: translateX(-8px); }
   75% { transform: translateX(8px); }
 }
-
 .login-btn {
-  width: 100%;
-  padding: 14px;
-  background: #FFF;
-  color: #0277BD;
-  border: none;
+  width: 100%; padding: 14px;
+  background: #FFF; color: #0277BD; border: none;
   border-radius: 13px;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  letter-spacing: 2px;
+  font-family: 'Patrick Hand', cursive; font-size: 1.2rem;
+  cursor: pointer; transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1); letter-spacing: 2px;
 }
 .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
 .login-msg { color: #FFCDD2; font-size: 0.9rem; margin-top: 12px; display: none; }
 .login-footer { margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.15); }
 .login-footer p { color: rgba(255,255,255,0.75); font-size: 0.88rem; }
 
-/* ===========================
-   HEADER — CELESTE SUAVE
-   =========================== */
+/* HEADER */
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position: sticky; top: 0; z-index: 100;
   background: linear-gradient(135deg, #E1F5FE, #B3E5FC, #E1F5FE);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
   border-bottom: 2px solid #81D4FA;
   box-shadow: 0 3px 18px rgba(30, 136, 229, 0.10);
   padding: 14px 20px;
 }
 .header-inner {
-  max-width: 950px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
+  max-width: 950px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
 }
 .header-left h1 { font-size: 1.4rem; color: #0277BD; }
 .header-left h1 i { color: var(--blue-mid); }
 .header-left p { color: var(--text-gray); font-size: 0.85rem; margin-top: 2px; }
 .header-right { display: flex; align-items: center; gap: 10px; }
-
 .btn-nav {
-  display: flex;
-  align-items: center;
-  gap: 7px;
+  display: flex; align-items: center; gap: 7px;
   padding: 9px 16px;
   background: rgba(255,255,255,0.7);
-  border: 2px solid #81D4FA;
-  border-radius: 11px;
-  color: #0277BD;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: var(--transition);
+  border: 2px solid #81D4FA; border-radius: 11px;
+  color: #0277BD; font-family: 'Patrick Hand', cursive;
+  font-size: 0.9rem; cursor: pointer; transition: var(--transition);
 }
 .btn-nav:hover { background: var(--blue-mid); color: #FFF; border-color: var(--blue-mid); }
 .btn-nav.active { background: var(--blue-mid); color: #FFF; border-color: var(--blue-mid); }
 .btn-nav.logout { border-color: #EF9A9A; color: #C62828; }
 .btn-nav.logout:hover { background: #EF5350; color: #FFF; border-color: #EF5350; }
-
 .refresh-dot {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  display: inline-flex; align-items: center; gap: 5px;
   padding: 5px 10px;
   background: rgba(255,255,255,0.5);
-  border: 1px solid #81D4FA;
-  border-radius: 16px;
-  font-size: 0.75rem;
-  color: var(--text-gray);
+  border: 1px solid #81D4FA; border-radius: 16px;
+  font-size: 0.75rem; color: var(--text-gray);
 }
 .refresh-dot span {
-  width: 6px; height: 6px;
-  background: var(--green-light);
-  border-radius: 50%;
-  animation: blink 2s infinite;
+  width: 6px; height: 6px; background: var(--green-light);
+  border-radius: 50%; animation: blink 2s infinite;
 }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-/* ===========================
-   MAIN
-   =========================== */
+/* MAIN */
 .main {
-  max-width: 950px;
-  margin: 0 auto;
-  padding: 22px 20px 60px;
-  position: relative;
-  z-index: 1;
+  max-width: 950px; margin: 0 auto;
+  padding: 22px 20px 60px; position: relative; z-index: 1;
 }
-
 .calendar-view { display: none; animation: fadeSlide 0.3s ease; }
 .calendar-view.active { display: block; }
 @keyframes fadeSlide {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 .calendar-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin-bottom: 16px;
 }
 .calendar-nav button {
-  width: 38px; height: 38px;
-  background: var(--white);
-  border: 2px solid #81D4FA;
-  border-radius: 50%;
-  color: #0277BD;
-  font-size: 0.95rem;
-  cursor: pointer;
+  width: 38px; height: 38px; background: var(--white);
+  border: 2px solid #81D4FA; border-radius: 50%;
+  color: #0277BD; font-size: 0.95rem; cursor: pointer;
   transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
 }
 .calendar-nav button:hover { background: var(--blue-mid); color: #FFF; border-color: var(--blue-mid); }
 .calendar-nav h3 { color: #0277BD; font-size: 1.3rem; min-width: 200px; text-align: center; }
-
 .calendar-legend {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
-  margin-bottom: 12px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 22px; margin-bottom: 12px;
 }
 .legend-item { display: flex; align-items: center; gap: 7px; font-size: 0.82rem; color: var(--text-gray); }
 .legend-dot { width: 9px; height: 9px; border-radius: 50%; }
 .legend-dot.has { background: var(--gold); }
 .legend-dot.today { background: var(--blue-mid); }
 .legend-dot.selected { background: var(--green-light); }
-
 .calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  margin-bottom: 12px;
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 4px; margin-bottom: 12px;
 }
 .cal-day-name {
-  text-align: center;
-  color: #0277BD;
-  font-size: 0.78rem;
-  padding: 6px 0;
-  font-weight: 700;
-  letter-spacing: 1px;
+  text-align: center; color: #0277BD; font-size: 0.78rem;
+  padding: 6px 0; font-weight: 700; letter-spacing: 1px;
 }
 .cal-day {
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--white);
-  border: 1px solid transparent;
-  border-radius: 9px;
-  cursor: pointer;
-  transition: var(--transition);
-  position: relative;
-  min-height: 44px;
-  font-size: 0.95rem;
-  color: var(--text-dark);
+  aspect-ratio: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: var(--white); border: 1px solid transparent;
+  border-radius: 9px; cursor: pointer; transition: var(--transition);
+  position: relative; min-height: 44px; font-size: 0.95rem; color: var(--text-dark);
 }
 .cal-day:hover { border-color: #81D4FA; box-shadow: var(--card-shadow); }
 .cal-day.today { border-color: var(--blue-mid); background: #E1F5FE; color: #0277BD; font-weight: 700; }
@@ -306,112 +220,70 @@ body {
 .cal-day.has-res .res-count { font-size: 0.52rem; color: var(--gold); margin-top: 1px; }
 .cal-day.empty { background: transparent; cursor: default; }
 .cal-day.empty:hover { background: transparent; box-shadow: none; border-color: transparent; }
-
 .day-res-header {
-  text-align: center;
-  padding: 15px 18px;
-  margin-bottom: 12px;
+  text-align: center; padding: 15px 18px; margin-bottom: 12px;
   background: linear-gradient(135deg, #E1F5FE, #B3E5FC);
-  border-radius: 14px;
-  border: 1px solid #81D4FA;
+  border-radius: 14px; border: 1px solid #81D4FA;
 }
 .day-res-badge {
-  display: inline-block;
-  padding: 4px 16px;
-  background: var(--blue-mid);
-  color: #FFF;
-  border-radius: 18px;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
+  display: inline-block; padding: 4px 16px;
+  background: var(--blue-mid); color: #FFF;
+  border-radius: 18px; font-size: 0.9rem; margin-bottom: 5px;
 }
 .day-res-date { display: block; color: #0277BD; font-size: 1.1rem; }
 .day-res-date strong { color: var(--gold); }
 
-/* ===========================
-   LIST VIEW
-   =========================== */
+/* LIST VIEW */
 .list-view { animation: fadeSlide 0.3s ease; }
 .list-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  padding: 0 4px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px; padding: 0 4px;
 }
 .list-header h3 { color: #0277BD; font-size: 1.1rem; }
 .list-header h3 i { color: var(--gold); margin-right: 5px; }
 .list-header span {
-  background: #81D4FA;
-  color: #0277BD;
-  padding: 3px 12px;
-  border-radius: 18px;
-  font-size: 0.82rem;
+  background: #81D4FA; color: #0277BD;
+  padding: 3px 12px; border-radius: 18px; font-size: 0.82rem;
 }
 
-/* ===========================
-   RESERVATION CARD
-   =========================== */
+/* RESERVATION CARD */
 .reservation-item {
   background: var(--card-bg);
   border: 1px solid rgba(30, 136, 229, 0.08);
-  border-radius: 14px;
-  padding: 16px 20px;
-  margin-bottom: 10px;
-  transition: var(--transition);
-  box-shadow: var(--card-shadow);
+  border-radius: 14px; padding: 16px 20px; margin-bottom: 10px;
+  transition: var(--transition); box-shadow: var(--card-shadow);
 }
 .reservation-item:hover { box-shadow: var(--card-hover); transform: translateY(-2px); border-color: #81D4FA; }
-
 .res-item-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 10px;
 }
 .res-item-name { font-size: 1.15rem; color: #0277BD; }
 .res-item-name strong { color: var(--purple); font-weight: 700; }
-
-/* 🔴 ROJO SI PASÓ / 🟢 VERDE SI FALTA */
 .res-time-badge {
-  padding: 5px 14px;
-  border-radius: 18px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  white-space: nowrap;
-  letter-spacing: 0.5px;
+  padding: 5px 14px; border-radius: 18px; font-size: 0.95rem;
+  font-weight: 700; white-space: nowrap; letter-spacing: 0.5px;
 }
 .res-time-badge.passed {
   background: linear-gradient(135deg, var(--red-badge), var(--red-light));
-  color: #FFF;
-  box-shadow: 0 2px 10px rgba(198, 40, 40, 0.25);
+  color: #FFF; box-shadow: 0 2px 10px rgba(198, 40, 40, 0.25);
 }
 .res-time-badge.pending {
   background: linear-gradient(135deg, var(--green-badge), var(--green-light));
-  color: #FFF;
-  box-shadow: 0 2px 10px rgba(46, 125, 50, 0.25);
+  color: #FFF; box-shadow: 0 2px 10px rgba(46, 125, 50, 0.25);
 }
-
 .res-item-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 8px;
 }
 .res-detail {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: var(--text-mid);
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.9rem; color: var(--text-mid);
 }
 .res-detail i {
-  width: 26px; height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 7px;
-  font-size: 0.7rem;
-  flex-shrink: 0;
+  width: 26px; height: 26px; display: flex;
+  align-items: center; justify-content: center;
+  border-radius: 7px; font-size: 0.7rem; flex-shrink: 0;
 }
 .res-detail i.cut { background: #E1F5FE; color: var(--blue-mid); }
 .res-detail i.user { background: #F3E5F5; color: var(--purple); }
@@ -421,228 +293,141 @@ body {
 .res-detail .detail-value { font-weight: 600; display: block; margin-top: 1px; }
 .res-detail .detail-value.gold { color: var(--gold); font-size: 1rem; }
 
-/* ===========================
-   EMPTY / LOADING
-   =========================== */
+/* EMPTY / LOADING */
 .empty-state, .loading-state {
-  text-align: center;
-  padding: 45px 20px;
-  background: var(--white);
-  border-radius: 14px;
+  text-align: center; padding: 45px 20px;
+  background: var(--white); border-radius: 14px;
   box-shadow: var(--card-shadow);
 }
-.empty-state i, .loading-state i { font-size: 2.2rem; color: var(--blue-mid); margin-bottom: 12px; }
+.empty-state i, .loading-state i {
+  font-size: 2.2rem; color: var(--blue-mid); margin-bottom: 12px;
+}
 .empty-state h3 { color: #0277BD; font-size: 1.2rem; margin-bottom: 5px; }
 .empty-state p { color: var(--text-gray); font-size: 0.9rem; }
+.empty-state .motivational {
+  margin-top: 18px; padding: 12px 16px;
+  background: linear-gradient(135deg, #E1F5FE, #B3E5FC);
+  border-left: 4px solid var(--gold); border-radius: 8px;
+  font-style: italic; color: var(--text-dark);
+  font-size: 0.95rem; line-height: 1.4;
+}
 .loading-spinner {
   width: 34px; height: 34px;
-  border: 3px solid #81D4FA;
-  border-top-color: var(--blue-mid);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  border: 3px solid #81D4FA; border-top-color: var(--blue-mid);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
   margin: 0 auto 12px;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ===========================
-   MODAL COMPACTO
-   =========================== */
+/* MODAL */
 .modal-overlay {
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  z-index: 5000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition);
-  padding: 16px;
+  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+  z-index: 5000; display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; transition: var(--transition); padding: 16px;
 }
 .modal-overlay.active { opacity: 1; visibility: visible; }
-
 .modal-card {
-  background: var(--white);
-  border: 1px solid #81D4FA;
-  border-radius: 20px;
-  padding: 22px 22px 20px;
-  max-width: 460px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
+  background: var(--white); border: 1px solid #81D4FA;
+  border-radius: 20px; padding: 22px 22px 20px;
+  max-width: 460px; width: 100%; max-height: 90vh; overflow-y: auto;
   box-shadow: 0 20px 50px rgba(0,0,0,0.12);
-  animation: modalUp 0.3s ease;
-  position: relative;
+  animation: modalUp 0.3s ease; position: relative;
 }
 @keyframes modalUp {
   from { opacity: 0; transform: translateY(30px) scale(0.96); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 .modal-close {
-  position: absolute;
-  top: 14px; right: 14px;
-  width: 32px; height: 32px;
-  background: var(--blue-soft);
-  border: 1px solid #81D4FA;
-  border-radius: 50%;
-  color: #0277BD;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute; top: 14px; right: 14px;
+  width: 32px; height: 32px; background: var(--blue-soft);
+  border: 1px solid #81D4FA; border-radius: 50%;
+  color: #0277BD; font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
   transition: var(--transition);
 }
 .modal-close:hover { background: var(--blue-mid); color: #FFF; }
-
 .modal-header {
-  text-align: center;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid #81D4FA;
+  text-align: center; margin-bottom: 16px;
+  padding-bottom: 12px; border-bottom: 2px solid #81D4FA;
 }
 .modal-avatar {
   width: 55px; height: 55px;
   background: linear-gradient(135deg, #E1F5FE, #B3E5FC);
-  border: 2px solid #81D4FA;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 10px;
-  font-size: 1.5rem;
-  color: #0277BD;
+  border: 2px solid #81D4FA; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 10px; font-size: 1.5rem; color: #0277BD;
 }
 .modal-header h3 { font-size: 1.3rem; color: #0277BD; }
 .modal-header .sub { color: var(--gold); font-size: 0.95rem; margin-top: 3px; font-weight: 600; }
-
 .modal-section { margin-bottom: 14px; }
 .modal-section-title {
-  font-size: 0.78rem;
-  color: #0277BD;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 7px;
-  padding-bottom: 4px;
+  font-size: 0.78rem; color: #0277BD;
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 7px; padding-bottom: 4px;
   border-bottom: 2px dashed #81D4FA;
 }
 .modal-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
   padding: 6px 0;
 }
 .modal-row:not(:last-child) { border-bottom: 1px solid rgba(0,0,0,0.04); }
 .modal-row .label {
-  color: var(--text-gray);
-  font-size: 0.92rem;
-  display: flex;
-  align-items: center;
-  gap: 7px;
+  color: var(--text-gray); font-size: 0.92rem;
+  display: flex; align-items: center; gap: 7px;
 }
 .modal-row .label i { color: var(--blue-mid); width: 16px; text-align: center; font-size: 0.8rem; }
 .modal-row .value { color: var(--text-dark); font-size: 0.98rem; text-align: right; }
 .modal-row .value.bold { font-weight: 700; color: #0277BD; }
 .modal-row .value.gold { color: var(--gold); font-size: 1.15rem; font-weight: 700; }
 .modal-row .value.time-big { color: var(--gold); font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; }
-
 .modal-wa-btn {
-  width: 100%;
-  padding: 12px;
+  width: 100%; padding: 12px;
   background: linear-gradient(135deg, #25D366, #128C7E);
-  color: #FFF;
-  border: none;
-  border-radius: 12px;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 1.05rem;
-  cursor: pointer;
-  transition: var(--transition);
+  color: #FFF; border: none; border-radius: 12px;
+  font-family: 'Patrick Hand', cursive; font-size: 1.05rem;
+  cursor: pointer; transition: var(--transition);
   box-shadow: 0 3px 12px rgba(37, 211, 102, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
+  display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px;
 }
 .modal-wa-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4); }
 
-/* ===========================
-   MODAL LOGOUT
-   =========================== */
-.logout-modal-content {
-  text-align: center;
-}
+/* LOGOUT MODAL */
+.logout-modal-content { text-align: center; }
 .logout-modal-content .logout-icon {
-  width: 65px; height: 65px;
-  background: #E3F2FD;
-  border: 2px solid #81D4FA;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 15px;
-  font-size: 1.6rem;
-  color: #0277BD;
+  width: 65px; height: 65px; background: #E3F2FD;
+  border: 2px solid #81D4FA; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 15px; font-size: 1.6rem; color: #0277BD;
 }
-.logout-modal-content h3 {
-  font-size: 1.4rem;
-  color: #0277BD;
-  margin-bottom: 10px;
-}
-.logout-modal-content p {
-  color: var(--text-gray);
-  font-size: 1rem;
-  margin-bottom: 20px;
-}
-.logout-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
+.logout-modal-content h3 { font-size: 1.4rem; color: #0277BD; margin-bottom: 10px; }
+.logout-modal-content p { color: var(--text-gray); font-size: 1rem; margin-bottom: 20px; }
+.logout-actions { display: flex; gap: 12px; justify-content: center; }
 .btn-logout-cancel {
-  padding: 12px 28px;
-  background: #F5F5F5;
-  border: 2px solid #BDBDBD;
-  border-radius: 12px;
-  color: #424242;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 1.05rem;
-  cursor: pointer;
-  transition: var(--transition);
+  padding: 12px 28px; background: #F5F5F5;
+  border: 2px solid #BDBDBD; border-radius: 12px;
+  color: #424242; font-family: 'Patrick Hand', cursive;
+  font-size: 1.05rem; cursor: pointer; transition: var(--transition);
 }
 .btn-logout-cancel:hover { background: #E0E0E0; }
 .btn-logout-confirm {
   padding: 12px 28px;
   background: linear-gradient(135deg, #EF5350, #C62828);
-  border: none;
-  border-radius: 12px;
-  color: #FFF;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 1.05rem;
-  cursor: pointer;
-  transition: var(--transition);
+  border: none; border-radius: 12px; color: #FFF;
+  font-family: 'Patrick Hand', cursive; font-size: 1.05rem;
+  cursor: pointer; transition: var(--transition);
   box-shadow: 0 3px 12px rgba(198, 40, 40, 0.3);
 }
 .btn-logout-confirm:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(198, 40, 40, 0.4); }
 
-/* ===========================
-   FOOTER
-   =========================== */
+/* FOOTER */
 .footer {
-  text-align: center;
-  padding: 18px 20px;
+  text-align: center; padding: 18px 20px;
   background: linear-gradient(135deg, #E1F5FE, #B3E5FC, #E1F5FE);
   border-top: none;
 }
-.footer-credit {
-  font-size: 0.95rem;
-  color: #0277BD;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
+.footer-credit { font-size: 0.95rem; color: #0277BD; font-weight: 700; letter-spacing: 1px; }
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
@@ -664,9 +449,7 @@ body {
 </head>
 <body>
 
-<!-- ========================
-     LOGIN
-     ======================== -->
+<!-- LOGIN -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-card">
     <div class="login-logo"><i class="fas fa-cut"></i></div>
@@ -679,9 +462,7 @@ body {
   </div>
 </div>
 
-<!-- ========================
-     PANEL
-     ======================== -->
+<!-- PANEL -->
 <div id="panel" style="display:none;">
   <header class="header">
     <div class="header-inner">
@@ -731,9 +512,7 @@ body {
   </footer>
 </div>
 
-<!-- ========================
-     MODAL DETALLE
-     ======================== -->
+<!-- MODAL DETALLE -->
 <div class="modal-overlay" id="detailModal">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
@@ -785,9 +564,7 @@ body {
   </div>
 </div>
 
-<!-- ========================
-     MODAL LOGOUT
-     ======================== -->
+<!-- MODAL LOGOUT -->
 <div class="modal-overlay" id="logoutModal">
   <div class="modal-card">
     <button class="modal-close" onclick="closeLogoutModal()"><i class="fas fa-times"></i></button>
@@ -804,7 +581,7 @@ body {
 </div>
 
 <script>
-  // === FIREBASE ===
+  // === FIREBASE CONFIG ===
   const firebaseConfig = {
     apiKey: "AIzaSyCfpqyhfHJIrxHIukoHm_G3r_DFIKAQgnU",
     authDomain: "la-magia-del-barbero1.firebaseapp.com",
@@ -814,25 +591,28 @@ body {
     appId: "1:654157704810:web:f0573a1dcb3b7dd5e02413",
     measurementId: "G-ZNXJLD03JY"
   };
-  firebase.initializeApp(firebaseConfig);
+
+  // Inicializar Firebase
+  try { firebase.initializeApp(firebaseConfig); } catch(e) { console.warn('Firebase ya inicializado'); }
   const db = firebase.firestore();
   const reservationsRef = db.collection('reservations');
 
-  // === LOGIN ===
-  if (sessionStorage.getItem('adminOK') === '1') {
+  // === LOGIN PERSISTENTE (localStorage) ===
+  if (localStorage.getItem('adminOK') === '1') {
     document.getElementById('loginOverlay').classList.add('hidden');
     document.getElementById('panel').style.display = 'block';
-    startAdmin();
+    setTimeout(startAdmin, 100);
   }
+
   const passInput = document.getElementById('passInput');
   passInput.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
 
   function login() {
     if (passInput.value === 'Magia2026') {
-      sessionStorage.setItem('adminOK', '1');
+      localStorage.setItem('adminOK', '1');
       document.getElementById('loginOverlay').classList.add('hidden');
       document.getElementById('panel').style.display = 'block';
-      setTimeout(startAdmin, 300);
+      setTimeout(startAdmin, 100);
     } else {
       passInput.classList.add('error');
       document.getElementById('loginMsg').style.display = 'block';
@@ -844,71 +624,138 @@ body {
     }
   }
 
-  // === ADMIN ===
+  // === VARIABLES GLOBALES ===
   let unsubscribe = null;
   let refreshTimer = null;
+  let loadTimeout = null;
   let allReservations = [];
   let calendarOpen = false;
   let calYear, calMonth, selectedDate = null;
   let currentModalRes = null;
+  let dataLoaded = false;
 
+  // === INICIAR ADMIN ===
   function startAdmin() {
+    dataLoaded = false;
+    allReservations = [];
+    if (!calendarOpen) renderLoadingState();
+    
+    if (loadTimeout) clearTimeout(loadTimeout);
+    loadTimeout = setTimeout(() => {
+      if (!dataLoaded) {
+        console.warn('⚠️ Timeout carga Firebase');
+        dataLoaded = true;
+        if (!calendarOpen) renderListView();
+        if (calendarOpen) { renderCalendar(); if (selectedDate) renderDayReservations(selectedDate); }
+      }
+    }, 5000);
+    
     loadAllReservations();
+    if (refreshTimer) clearInterval(refreshTimer);
     refreshTimer = setInterval(loadAllReservations, 120000);
   }
 
+  // === CARGAR RESERVAS FIREBASE ===
   function loadAllReservations() {
     if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+    
     const q = reservationsRef.orderBy('timestamp', 'desc');
-    unsubscribe = q.onSnapshot(snapshot => {
-      allReservations = [];
-      snapshot.forEach(doc => { allReservations.push({ id: doc.id, ...doc.data() }); });
-      if (!calendarOpen) renderListView();
-      if (calendarOpen) { renderCalendar(); if (selectedDate) renderDayReservations(selectedDate); }
-    }, err => { console.error(err); });
+    unsubscribe = q.onSnapshot(
+      snapshot => {
+        if (loadTimeout) { clearTimeout(loadTimeout); loadTimeout = null; }
+        allReservations = [];
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          // Convertir Timestamp de Firebase a Date nativo
+          if (data.timestamp && typeof data.timestamp.toDate === 'function') {
+            data.timestamp = data.timestamp.toDate();
+          }
+          allReservations.push({ id: doc.id, ...data });
+        });
+        dataLoaded = true;
+        if (!calendarOpen) renderListView();
+        if (calendarOpen) { renderCalendar(); if (selectedDate) renderDayReservations(selectedDate); }
+      },
+      error => {
+        console.error('❌ Error Firebase:', error);
+        if (loadTimeout) { clearTimeout(loadTimeout); loadTimeout = null; }
+        dataLoaded = true; // Evitar pantalla blanca
+        if (!calendarOpen) renderListView();
+        if (calendarOpen) { renderCalendar(); if (selectedDate) renderDayReservations(selectedDate); }
+      }
+    );
   }
 
-  // === ¿PASÓ LA HORA? ===
+  // === ESTADO DE CARGA ===
+  function renderLoadingState() {
+    const container = document.getElementById('listContainer');
+    container.innerHTML = `
+      <div class="loading-state">
+        <div class="loading-spinner"></div>
+        <p style="color:var(--text-gray);font-size:1rem;margin-top:8px;">Cargando reservas...</p>
+      </div>
+    `;
+  }
+
+  // === FRASES MOTIVACIONALES ===
+  const motivationalPhrases = [
+    "✨ Hoy es un nuevo día para crear magia. ¡Cada corte cuenta una historia!",
+    "💈 La paciencia es la clave del éxito. Las reservas llegarán, confía en tu talento.",
+    "🌟 Un barbero no solo corta cabello, transforma vidas. ¡Sigue brillando!",
+    "🔥 Los grandes imperios empezaron con un solo cliente. ¡Hoy puede ser ese día!",
+    "💙 La constancia vence a la perfección. Cada día es una oportunidad para mejorar.",
+    "✂️ Tu pasión es tu mejor herramienta. ¡El éxito está en el detalle!",
+    "🚀 No cuentes los días, haz que los días cuenten. ¡Tu barbería es única!"
+  ];
+  function getTodaysMotivation() {
+    return motivationalPhrases[new Date().getDay()];
+  }
+
+  // === VERIFICAR SI PASÓ LA HORA ===
   function isPassed(res) {
     const today = new Date().toISOString().split('T')[0];
     if (res.dateISO !== today || !res.time) return false;
     const now = new Date();
     const nowMin = now.getHours() * 60 + now.getMinutes();
     const [h, m] = res.time.split(':').map(Number);
-    // Si ya pasó más de 15 min de la hora de la cita
     return (h * 60 + m) < nowMin;
   }
 
-  // === RENDER LISTA ===
+  // === RENDERIZAR LISTA ===
   function renderListView() {
     const container = document.getElementById('listContainer');
+    if (!dataLoaded) { renderLoadingState(); return; }
+    
     const today = new Date().toISOString().split('T')[0];
     const todayList = allReservations.filter(r => r.dateISO === today);
     todayList.sort((a, b) => (a.time || '').localeCompare(b.time || ''));
-
+    
     document.getElementById('listCount').textContent = todayList.length + ' cita' + (todayList.length !== 1 ? 's' : '');
-
+    
     if (todayList.length === 0) {
-      container.innerHTML = `<div class="empty-state"><i class="fas fa-calendar-check"></i><h3>Sin reservas hoy</h3><p>No hay citas programadas</p></div>`;
+      container.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-calendar-xmark" style="color:#BDBDBD;font-size:2.5rem;"></i>
+          <h3 style="color:#757575;margin:10px 0 5px;">Sin reservas hoy</h3>
+          <p style="color:#9E9E9E;font-size:0.95rem;">No hay citas programadas para hoy</p>
+          <div class="motivational">"${getTodaysMotivation()}"</div>
+        </div>
+      `;
       return;
     }
-
+    
     container.innerHTML = '';
     todayList.forEach(res => {
       const item = document.createElement('div');
       item.className = 'reservation-item';
       item.onclick = () => openModal(res);
-
       const proName = res.professional || res.professionalName || '';
       const passed = isPassed(res);
       const badgeClass = passed ? 'passed' : 'pending';
-
       item.innerHTML = `
         <div class="res-item-top">
           <div class="res-item-name"><strong>${res.name || 'Sin nombre'}</strong></div>
-          <div class="res-time-badge ${badgeClass}">
-            <i class="fas fa-clock"></i> ${res.time || '--:--'}
-          </div>
+          <div class="res-time-badge ${badgeClass}"><i class="fas fa-clock"></i> ${res.time || '--:--'}</div>
         </div>
         <div class="res-item-details">
           <div class="res-detail"><i class="fas fa-cut cut"></i><div><span class="detail-label">Servicio</span><span class="detail-value">${res.service || 'N/A'}</span></div></div>
@@ -917,29 +764,23 @@ body {
           <div class="res-detail"><i class="fas fa-coins price"></i><div><span class="detail-label">Precio</span><span class="detail-value gold">S/ ${res.price || '0'}</span></div></div>
         </div>
       `;
-
       container.appendChild(item);
     });
   }
 
-  // ===========================
-  // CALENDARIO
-  // ===========================
+  // === CALENDARIO ===
   function toggleCalendar() {
     calendarOpen = !calendarOpen;
     const calView = document.getElementById('calendarView');
     const listView = document.getElementById('listView');
     const btn = document.getElementById('btnCalToggle');
-
     if (calendarOpen) {
       calView.classList.add('active');
       listView.style.display = 'none';
       btn.classList.add('active');
       btn.innerHTML = '<i class="fas fa-list"></i> Lista';
       const now = new Date();
-      calYear = now.getFullYear();
-      calMonth = now.getMonth();
-      selectedDate = null;
+      calYear = now.getFullYear(); calMonth = now.getMonth(); selectedDate = null;
       renderCalendar();
       document.getElementById('dayResContainer').innerHTML = '';
     } else {
@@ -963,24 +804,22 @@ body {
 
   function renderCalendar() {
     const grid = document.getElementById('calGrid');
+    if (!dataLoaded && allReservations.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text-gray);">Cargando...</div>';
+      return;
+    }
     const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
     const dayNames = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
-
     document.getElementById('calMonthYear').textContent = monthNames[calMonth] + ' ' + calYear;
-
     const dayCounts = {};
     allReservations.forEach(r => { if (r.dateISO) dayCounts[r.dateISO] = (dayCounts[r.dateISO] || 0) + 1; });
-
     const today = new Date();
     const todayDate = today.getDate();
     const isCurrentMonth = today.getFullYear() === calYear && today.getMonth() === calMonth;
-
     let html = '';
     dayNames.forEach(d => { html += `<div class="cal-day-name">${d}</div>`; });
-
     const firstDay = new Date(calYear, calMonth, 1).getDay();
     for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
-
     const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
     for (let d = 1; d <= daysInMonth; d++) {
       let classes = 'cal-day';
@@ -991,7 +830,6 @@ body {
       const countBadge = dayCounts[dateStr] ? `<span class="res-count">${dayCounts[dateStr]}</span>` : '';
       html += `<div class="${classes}" onclick="selectDay('${dateStr}')"><span class="day-num">${d}</span>${countBadge}</div>`;
     }
-
     grid.innerHTML = html;
   }
 
@@ -1003,47 +841,31 @@ body {
 
   function renderDayReservations(dateStr) {
     const container = document.getElementById('dayResContainer');
+    if (!dataLoaded) {
+      container.innerHTML = `<div class="loading-state"><div class="loading-spinner"></div><p style="color:var(--text-gray);font-size:1rem;">Cargando...</p></div>`;
+      return;
+    }
     const [year, month, day] = dateStr.split('-');
     const dateObj = new Date(year, month - 1, day);
     const dayName = dateObj.toLocaleDateString('es-PE', { weekday: 'long' });
     const dateFormatted = dateObj.toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' });
-
     const dayList = allReservations.filter(r => r.dateISO === dateStr);
     dayList.sort((a, b) => (a.time || '').localeCompare(b.time || ''));
-
-    let html = `<div class="day-res-header">
-      <span class="day-res-badge"><i class="fas fa-calendar-day"></i> ${dayList.length} reserva${dayList.length !== 1 ? 's' : ''}</span>
-      <span class="day-res-date">Reservas para el <strong>${dayName} ${dateFormatted}</strong></span>
-    </div>`;
-
+    let html = `<div class="day-res-header"><span class="day-res-badge"><i class="fas fa-calendar-day"></i> ${dayList.length} reserva${dayList.length !== 1 ? 's' : ''}</span><span class="day-res-date">Reservas para el <strong>${dayName} ${dateFormatted}</strong></span></div>`;
     if (dayList.length === 0) {
-      html += `<div class="empty-state" style="margin-top:12px;"><i class="fas fa-inbox"></i><h3>Sin reservas</h3><p>No hay citas para este día</p></div>`;
+      html += `<div class="empty-state" style="margin-top:12px;"><i class="fas fa-inbox" style="color:#BDBDBD;font-size:2.5rem;"></i><h3 style="color:#757575;margin:10px 0 5px;">Sin reservas</h3><p style="color:#9E9E9E;font-size:0.95rem;">No hay citas para este día</p><div class="motivational">"${getTodaysMotivation()}"</div></div>`;
     } else {
       dayList.forEach(res => {
         const proName = res.professional || res.professionalName || '';
         const passed = isPassed(res);
         const badgeClass = passed ? 'passed' : 'pending';
-        html += `<div class="reservation-item" onclick="openModal(allReservations.find(r => r.id === '${res.id}'))">
-          <div class="res-item-top">
-            <div class="res-item-name"><strong>${res.name || 'Sin nombre'}</strong></div>
-            <div class="res-time-badge ${badgeClass}"><i class="fas fa-clock"></i> ${res.time || '--:--'}</div>
-          </div>
-          <div class="res-item-details">
-            <div class="res-detail"><i class="fas fa-cut cut"></i><div><span class="detail-label">Servicio</span><span class="detail-value">${res.service || 'N/A'}</span></div></div>
-            <div class="res-detail"><i class="fas fa-user-tie user"></i><div><span class="detail-label">Profesional</span><span class="detail-value">${proName}</span></div></div>
-            <div class="res-detail"><i class="fas fa-phone phone"></i><div><span class="detail-label">Teléfono</span><span class="detail-value">${res.phone || 'N/A'}</span></div></div>
-            <div class="res-detail"><i class="fas fa-coins price"></i><div><span class="detail-label">Precio</span><span class="detail-value gold">S/ ${res.price || '0'}</span></div></div>
-          </div>
-        </div>`;
+        html += `<div class="reservation-item" onclick="openModal(allReservations.find(r => r.id === '${res.id}'))"><div class="res-item-top"><div class="res-item-name"><strong>${res.name || 'Sin nombre'}</strong></div><div class="res-time-badge ${badgeClass}"><i class="fas fa-clock"></i> ${res.time || '--:--'}</div></div><div class="res-item-details"><div class="res-detail"><i class="fas fa-cut cut"></i><div><span class="detail-label">Servicio</span><span class="detail-value">${res.service || 'N/A'}</span></div></div><div class="res-detail"><i class="fas fa-user-tie user"></i><div><span class="detail-label">Profesional</span><span class="detail-value">${proName}</span></div></div><div class="res-detail"><i class="fas fa-phone phone"></i><div><span class="detail-label">Teléfono</span><span class="detail-value">${res.phone || 'N/A'}</span></div></div><div class="res-detail"><i class="fas fa-coins price"></i><div><span class="detail-label">Precio</span><span class="detail-value gold">S/ ${res.price || '0'}</span></div></div></div></div>`;
       });
     }
-
     container.innerHTML = html;
   }
 
-  // ===========================
-  // MODAL DETALLE
-  // ===========================
+  // === MODAL DETALLE ===
   function openModal(res) {
     currentModalRes = res;
     document.getElementById('mName').textContent = res.name || 'Sin nombre';
@@ -1054,26 +876,22 @@ body {
     document.getElementById('mPrice').textContent = 'S/ ' + (res.price || '0');
     document.getElementById('mPro').textContent = res.professional || res.professionalName || 'No especificado';
     document.getElementById('mPhone').textContent = res.phone || 'N/A';
-
     let reservedAt = 'N/A';
     if (res.timestamp) {
       try {
         const ts = res.timestamp.toDate ? res.timestamp.toDate() : new Date(res.timestamp);
-        reservedAt = ts.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        reservedAt = ts.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
       } catch(e) {}
     }
     document.getElementById('mReserved').textContent = reservedAt;
-
     document.getElementById('detailModal').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
-
   function closeModal() {
     document.getElementById('detailModal').classList.remove('active');
     document.body.style.overflow = '';
     currentModalRes = null;
   }
-
   function sendWhatsAppFromModal() {
     if (!currentModalRes) return;
     const res = currentModalRes;
@@ -1083,66 +901,39 @@ body {
     const service = (res.service || 'SERVICIO').toUpperCase();
     const time = res.time || '';
     const date = res.date || '';
-
     const today = new Date().toISOString().split('T')[0];
     const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-
     let dayRef = date.toUpperCase();
     if (res.dateISO === today) dayRef = 'HOY';
     else if (res.dateISO === tomorrow) dayRef = 'MAÑANA';
-
-    const msg =
-      `💈  LA MAGIA DEL BARBERO  💈\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
-      `¡HOLA *${name}*! 👋\n\n` +
-      `LE RECORDAMOS AMABLEMENTE SU RESERVA:\n\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `📅  DÍA: *${dayRef}*\n` +
-      `⏰  HORA: *${time}*\n` +
-      `✂️  SERVICIO: *${service}*\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
-      `¡LO ESPERAMOS CON MUCHO GUSTO! 😊\n` +
-      `GRACIAS POR ELEGIRNOS 🙏`;
-
+    const msg = `💈  LA MAGIA DEL BARBERO  💈\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n¡HOLA *${name}*! 👋\n\nLE RECORDAMOS AMABLEMENTE SU RESERVA:\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅  DÍA: *${dayRef}*\n⏰  HORA: *${time}*\n✂️  SERVICIO: *${service}*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n¡LO ESPERAMOS CON MUCHO GUSTO! 😊\nGRACIAS POR ELEGIRNOS 🙏`;
     window.open(`https://wa.me/${fullPhone}?text=${encodeURIComponent(msg)}`, '_blank');
   }
+  document.getElementById('detailModal').addEventListener('click', e => { if (e.target === this) closeModal(); });
 
-  document.getElementById('detailModal').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
-  });
-
-  // ===========================
-  // MODAL LOGOUT
-  // ===========================
+  // === MODAL LOGOUT ===
   function showLogoutModal() {
     document.getElementById('logoutModal').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
-
   function closeLogoutModal() {
     document.getElementById('logoutModal').classList.remove('active');
     document.body.style.overflow = '';
   }
-
   function confirmLogout() {
-    sessionStorage.removeItem('adminOK');
+    localStorage.removeItem('adminOK');
     location.reload();
   }
+  document.getElementById('logoutModal').addEventListener('click', e => { if (e.target === this) closeLogoutModal(); });
 
-  document.getElementById('logoutModal').addEventListener('click', function(e) {
-    if (e.target === this) closeLogoutModal();
-  });
-
+  // === TECLAS Y LIMPIEZA ===
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      closeModal();
-      closeLogoutModal();
-    }
+    if (e.key === 'Escape') { closeModal(); closeLogoutModal(); }
   });
-
   window.addEventListener('beforeunload', () => {
-    if (unsubscribe) unsubscribe();
-    if (refreshTimer) clearInterval(refreshTimer);
+    if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+    if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
+    if (loadTimeout) { clearTimeout(loadTimeout); loadTimeout = null; }
   });
 </script>
 </body>
