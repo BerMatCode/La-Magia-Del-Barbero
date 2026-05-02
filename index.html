@@ -6,7 +6,6 @@
 <meta name="description" content="La Magia del Barbero es una barbería profesional ubicada en Andahuaylas, Apurimac . Ofrecemos cortes modernos y clásicos para niños, jóvenes y adultos, arreglo de barba, colorimetría y tratamientos faciales. Vive una experiencia de barbería premium con atención personalizada y estilo.">
 <meta name="author" content="BerMatMods - Desarrollo Web">
 <meta name="google-site-verification" content="JG8_KsOCw2MKItELjrA7vFLxZwO_NQsJsUs1s6prI8A" />
-<!-- ✅ COLOR DE BARRA DE NAVEGACIÓN CHROME/ANDROID -->
 <meta name="theme-color" content="#050505">
 <link rel="icon" type="image/jpg" href="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/logo%20de%20la%20barber%C3%ADa.jpg">
 <link rel="icon" type="image/jpg" sizes="16x16" href="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/logo%20de%20la%20barber%C3%ADa.jpg">
@@ -28,7 +27,6 @@
 <!-- ✅ CSS INTEGRADO -->
 <style>
 :root {
-  /* === TEMA DORADO === */
   --black: #050505;
   --black-card: #0f0f0f;
   --black-glass: rgba(15, 15, 15, 0.85);
@@ -39,21 +37,16 @@
   --white: #ffffff;
   --gray: #a0a0a0;
   --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Imágenes por tema */
   --hero-bg: url('https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/fondo%20dorado.png');
   --footer-logo: url('https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/logo%20neon%20dorado.png');
   --whatsapp-btn: url('https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/WhatsApp%20dorado.png');
 }
 
 [data-theme="purple"] {
-  /* === TEMA MORADO === */
   --primary: #9D00FF;
   --primary-light: #B721FF;
   --primary-glow: rgba(157, 0, 255, 0.5);
   --primary-soft: rgba(157, 0, 255, 0.15);
-  
-  /* Imágenes por tema */
   --hero-bg: url('https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/fondo%20morado.jpg');
   --footer-logo: url('https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/logo%20neon%20morado.png');
   --whatsapp-btn: url('https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/WhatsApp%20morado.png');
@@ -342,7 +335,6 @@ section { padding: 80px 0; }
   box-shadow: 0 0 15px var(--primary-glow);
   transition: var(--transition);
 }
-/* 🔽 SUBTÍTULOS REDUCIDOS */
 .section-header h2 {
   font-size: 1.6rem;
   text-transform: uppercase;
@@ -444,7 +436,7 @@ section { padding: 80px 0; }
   font-size: 0.85rem;
 }
 
-/* === ESTILOS PARA PROFESIONALES - SIMPLIFICADOS === */
+/* === PROFESIONALES === */
 .professionals-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -533,8 +525,8 @@ section { padding: 80px 0; }
   line-height: 1.6;
   text-align: center;
 }
-/* === FIN ESTILOS PROFESIONALES === */
 
+/* === RESERVAS === */
 .booking-section {
   background: 
     linear-gradient(135deg, rgba(15,15,15,0.92) 0%, rgba(5,5,5,0.95) 100%),
@@ -604,6 +596,11 @@ section { padding: 80px 0; }
   font-size: 0.9rem;
   transition: var(--transition);
 }
+.form-control option:disabled {
+  color: var(--gray);
+  background: #1a1a1a;
+  text-decoration: line-through;
+}
 [data-theme="purple"] .form-control {
   border-color: rgba(157,0,255,0.4);
 }
@@ -618,184 +615,206 @@ section { padding: 80px 0; }
   grid-template-columns: 1fr 1fr;
   gap: 14px;
 }
-.booking-summary {
-  background: var(--primary-soft);
-  border: 1px solid var(--primary);
-  border-radius: 15px;
-  padding: 15px;
-  margin: 18px 0;
+
+/* === MODALES OVERLAY CENTRADOS === */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 5, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  padding: 20px;
+}
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-box-content {
+  background: var(--black-card);
+  border: 2px solid var(--primary);
+  border-radius: 25px;
+  padding: 35px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 70px var(--primary-glow);
+  animation: modalPop 0.35s ease;
   transition: var(--transition);
 }
-.summary-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-  border-bottom: 1px dashed rgba(212,175,55,0.4);
-  font-size: 0.9rem;
+[data-theme="purple"] .modal-box-content {
+  border-color: rgba(157, 0, 255, 0.6);
+  box-shadow: 0 25px 70px rgba(157, 0, 255, 0.3);
 }
-[data-theme="purple"] .summary-item {
-  border-bottom-color: rgba(157,0,255,0.4);
-}
-.summary-item:last-child {
-  border-bottom: none;
-  font-weight: 700;
-  color: var(--primary-light);
-  font-size: 1rem;
-  font-family: 'Orbitron', sans-serif;
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.85) translateY(30px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* === MODALES === */
-.confirmation, .loading-modal, .error-modal {
-  text-align: center;
-  padding: 35px 25px;
-  display: none;
-  animation: slideIn 0.4s ease;
-  max-width: 550px;
-  margin: 0 auto;
-}
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.confirmation.active, .loading-modal.active, .error-modal.active { 
-  display: block; 
-}
-
-/* Loading Modal */
-.loading-modal .loading-icon {
+/* Modal Loading */
+.loading-icon {
   width: 75px;
   height: 75px;
   border: 4px solid var(--primary-soft);
   border-top-color: var(--primary-light);
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin: 0 auto 22px;
   animation: spin 1s linear infinite;
 }
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-.loading-modal h3 {
+.modal-box-content h3 {
   font-size: 1.4rem;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   background: linear-gradient(135deg, var(--white), var(--primary-light));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  transition: var(--transition);
+  text-transform: uppercase;
 }
-.loading-modal p {
+.modal-box-content p {
   color: var(--gray);
   font-size: 1rem;
 }
 
-/* Success Modal */
-.confirmation-icon {
-  width: 75px;
-  height: 75px;
+/* Modal Éxito */
+.success-icon {
+  width: 80px;
+  height: 80px;
   background: linear-gradient(135deg, #25D366, #128C7E);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 18px;
-  font-size: 1.8rem;
+  margin: 0 auto 22px;
+  font-size: 2rem;
   color: var(--white);
-  animation: pulse 2s infinite;
+  animation: successPulse 2s infinite;
   box-shadow: 0 0 40px rgba(37, 211, 102, 0.5);
-  transition: var(--transition);
 }
-@keyframes pulse {
+@keyframes successPulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
   50% { box-shadow: 0 0 0 25px rgba(37, 211, 102, 0); }
 }
-.confirmation h3 {
-  font-size: 1.4rem;
+.modal-success h3 {
+  color: #25D366;
+  font-size: 1.5rem;
   margin-bottom: 14px;
-  background: linear-gradient(135deg, var(--white), var(--primary-light));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: var(--transition);
+  text-transform: uppercase;
 }
-.confirmation p {
-  color: var(--gray);
+.modal-success p {
+  color: var(--white);
+  font-size: 1.05rem;
   margin-bottom: 20px;
-  font-size: 1rem;
+  line-height: 1.6;
 }
-.confirmation-note {
+.success-note {
   background: var(--primary-soft);
   border-left: 4px solid var(--primary);
-  padding: 12px 16px;
+  padding: 14px 18px;
   margin: 18px 0;
   border-radius: 0 12px 12px 0;
   font-size: 0.85rem;
   color: var(--gray);
   text-align: left;
-  transition: var(--transition);
-}
-.btn-reset {
-  background: transparent;
-  border: 2px solid var(--gray);
-  color: var(--gray);
-  margin-top: 10px;
-}
-.btn-reset:hover {
-  border-color: var(--primary-light);
-  color: var(--primary-light);
-  box-shadow: 0 0 20px var(--primary-glow);
 }
 
-/* Error Modal */
-.error-modal .error-icon {
-  width: 75px;
-  height: 75px;
+/* Modal Error */
+.error-icon {
+  width: 80px;
+  height: 80px;
   background: linear-gradient(135deg, #ff4757, #ff3838);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 18px;
-  font-size: 1.8rem;
+  margin: 0 auto 22px;
+  font-size: 2rem;
   color: white;
   animation: warningPulse 1.5s infinite;
   box-shadow: 0 10px 30px rgba(255, 56, 56, 0.5);
-  transition: var(--transition);
 }
 @keyframes warningPulse {
   0% { box-shadow: 0 0 0 0 rgba(255, 56, 56, 0.7); }
   70% { box-shadow: 0 0 0 15px rgba(255, 56, 56, 0); }
   100% { box-shadow: 0 0 0 0 rgba(255, 56, 56, 0); }
 }
-.error-modal h3 {
-  font-size: 1.4rem;
-  margin-bottom: 14px;
+.modal-error h3 {
   color: #ff6b6b;
+  font-size: 1.5rem;
+  margin-bottom: 14px;
   text-transform: uppercase;
-  transition: var(--transition);
 }
-.error-modal p {
+.modal-error p {
   color: var(--gray);
-  margin-bottom: 20px;
   font-size: 1rem;
+  margin-bottom: 20px;
+  line-height: 1.6;
 }
-.error-modal .btn {
-  background: linear-gradient(135deg, #ff4757, #ff3838);
-  margin-top: 10px;
-}
-.error-modal .btn:hover {
-  box-shadow: 0 10px 40px rgba(255, 56, 56, 0.5);
-}
-.error-modal .btn-whatsapp-fallback {
+.modal-error .btn-whatsapp-fallback {
   background: linear-gradient(135deg, #25D366, #128C7E);
   margin-top: 10px;
+  box-shadow: 0 5px 25px rgba(37, 211, 102, 0.4);
 }
-.error-modal .btn-whatsapp-fallback:hover {
-  box-shadow: 0 10px 40px rgba(37, 211, 102, 0.5);
+.modal-error .btn-whatsapp-fallback:hover {
+  box-shadow: 0 10px 40px rgba(37, 211, 102, 0.6);
+}
+.modal-error .btn {
+  background: linear-gradient(135deg, #ff4757, #ff3838);
+  margin-top: 10px;
+  box-shadow: 0 5px 25px rgba(255, 56, 56, 0.4);
+}
+.modal-error .btn:hover {
+  box-shadow: 0 10px 40px rgba(255, 56, 56, 0.6);
 }
 
+/* Modal de campos incompletos */
+.warning-modal-icon {
+  width: 75px;
+  height: 75px;
+  background: linear-gradient(135deg, #ff4757, #ff3838);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  font-size: 2rem;
+  color: white;
+  box-shadow: 0 10px 30px rgba(255, 56, 56, 0.5);
+  animation: warningPulse 1.5s infinite;
+}
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  color: var(--gray);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+/* === UBICACIÓN === */
 .location-section {
   background: var(--black-card);
 }
@@ -889,6 +908,7 @@ section { padding: 80px 0; }
   color: var(--primary-light);
 }
 
+/* === FOOTER === */
 footer {
   background: var(--black);
   padding: 50px 0 25px;
@@ -1020,114 +1040,6 @@ footer::before {
   filter: drop-shadow(0 6px 20px rgba(0,0,0,0.6));
 }
 
-/* Modal de advertencia original */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(5,5,5,0.92);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3000;
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition);
-  padding: 20px;
-}
-.modal.active {
-  opacity: 1;
-  visibility: visible;
-}
-.modal-box {
-  background: var(--black-card);
-  border: 2px solid var(--primary);
-  border-radius: 25px;
-  padding: 35px;
-  max-width: 480px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0 25px 70px var(--primary-glow);
-  animation: modalPop 0.35s ease;
-  position: relative;
-  transition: var(--transition);
-}
-@keyframes modalPop {
-  from { opacity: 0; transform: scale(0.9) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
-.modal-icon {
-  width: 75px;
-  height: 75px;
-  background: linear-gradient(135deg, #ff4757, #ff3838);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 22px;
-  font-size: 2rem;
-  color: white;
-  box-shadow: 0 10px 30px rgba(255, 56, 56, 0.5);
-  animation: warningPulse 1.5s infinite;
-  transition: var(--transition);
-}
-.modal-title {
-  font-size: 1.5rem;
-  color: var(--primary-light);
-  margin-bottom: 14px;
-  text-transform: uppercase;
-  transition: var(--transition);
-}
-.modal-text {
-  color: var(--gray);
-  font-size: 1rem;
-  margin-bottom: 28px;
-  line-height: 1.6;
-}
-.modal-btn {
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
-  color: white;
-  border: none;
-  padding: 14px 40px;
-  border-radius: 30px;
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: var(--transition);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow: 0 5px 25px var(--primary-glow);
-}
-.modal-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 40px var(--primary-glow);
-}
-.modal-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  background: transparent;
-  border: none;
-  color: var(--gray);
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.3rem;
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-close:hover {
-  background: var(--primary);
-  color: white;
-  box-shadow: 0 0 20px var(--primary-glow);
-}
-
 @media (max-width: 768px) {
   .mobile-toggle { display: flex; }
   .nav-links {
@@ -1151,12 +1063,10 @@ footer::before {
   .form-row { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: 1fr; }
   .booking-card { padding: 20px; margin: 0 15px; }
-  .whatsapp-confirm { width: 100%; justify-content: center; }
+  .modal-box-content { padding: 28px 22px; margin: 10px; }
   .logo img { height: 38px; }
   .footer-logo img { height: 100px; }
   .social-btn { width: 50px; height: 50px; font-size: 1.2rem; }
-  .modal-box { padding: 28px 22px; margin: 10px; }
-  .confirmation, .loading-modal, .error-modal { padding: 30px 20px; }
   .whatsapp-float { bottom: 20px; right: 20px; }
   .whatsapp-float img { width: 52px; height: 52px; }
   .professional-image-wrapper { aspect-ratio: 1/1; }
@@ -1222,7 +1132,6 @@ html[data-theme-transition] * {
         <h2>Nuestros Servicios</h2>
         <p>Calidad profesional con técnicas de vanguardia</p>
       </div>
-      
       <div class="services-grid">
         <div class="service-card">
           <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800" alt="Tratamiento Facial" class="service-image">
@@ -1238,7 +1147,6 @@ html[data-theme-transition] * {
             </button>
           </div>
         </div>
-
         <div class="service-card">
           <img src="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/Archivos/Corte%20Moderno%2BCejas.jpeg" alt="Corte Moderno" class="service-image">
           <div class="service-content">
@@ -1253,7 +1161,6 @@ html[data-theme-transition] * {
             </button>
           </div>
         </div>
-
         <div class="service-card" style="border-color: var(--primary-light);">
           <img src="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/Archivos/Corte%20Premium.jpeg" alt="Corte Premium" class="service-image">
           <div class="service-content">
@@ -1268,7 +1175,6 @@ html[data-theme-transition] * {
             </button>
           </div>
         </div>
-
         <div class="service-card">
           <img src="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/Archivos/Corte%2BBarba%2BCeja.jpg" alt="Corte Completo" class="service-image">
           <div class="service-content">
@@ -1283,7 +1189,6 @@ html[data-theme-transition] * {
             </button>
           </div>
         </div>
-
         <div class="service-card">
           <img src="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/Archivos/Corte%20Cl%C3%A1sico.jpeg" alt="Corte Clásico" class="service-image">
           <div class="service-content">
@@ -1298,7 +1203,6 @@ html[data-theme-transition] * {
             </button>
           </div>
         </div>
-
         <div class="service-card">
           <img src="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/Archivos/Ondulaci%C3%B3n.jpg" alt="Ondulación" class="service-image">
           <div class="service-content">
@@ -1313,7 +1217,6 @@ html[data-theme-transition] * {
             </button>
           </div>
         </div>
-
         <div class="service-card">
           <img src="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/Archivos/Tinte.jpg" alt="Tinte" class="service-image">
           <div class="service-content">
@@ -1328,7 +1231,6 @@ html[data-theme-transition] * {
             </button>
           </div>
         </div>
-
         <div class="service-card">
           <img src="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/Archivos/Limpieza%20del%20Rostro.jpeg" alt="Limpieza" class="service-image">
           <div class="service-content">
@@ -1343,7 +1245,6 @@ html[data-theme-transition] * {
             </button>
           </div>
         </div>
-
         <div class="service-card">
           <img src="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/Archivos/Corte%2BFacial%2BCeja.jpeg" alt="Servicio Completo" class="service-image">
           <div class="service-content">
@@ -1362,7 +1263,6 @@ html[data-theme-transition] * {
     </div>
   </section>
 
-  <!-- === SECCIÓN PROFESIONALES === -->
   <section id="profesionales" style="background: var(--black-card);">
     <div class="container">
       <div class="section-header">
@@ -1393,18 +1293,14 @@ html[data-theme-transition] * {
     </div> 
   </section>
 
-  <!-- === SECCIÓN RESERVAS CON FIREBASE === -->
   <section id="reservas" class="booking-section">
     <div class="container">
       <div class="section-header">
         <h2>Reserva Tu Cita</h2>
       </div>
-      
       <div class="booking-card">
-        <!-- Formulario de Reserva -->
         <div class="booking-form" id="bookingForm">
           <h3>♕︎Completa Tus Datos ♕︎</h3>
-          
           <div class="form-grid">
             <div class="form-group">
               <label>Servicio</label>
@@ -1421,7 +1317,6 @@ html[data-theme-transition] * {
                 <option value="Corte, facial, lavado + diseño de ceja|50">CORTE + FACIAL + CEJA - S/ 50</option>
               </select>
             </div>
-
             <div class="form-group">
               <label>Profesional</label>
               <select class="form-control" id="professional" required>
@@ -1429,7 +1324,6 @@ html[data-theme-transition] * {
                 <option value="Ruth Elizabeth Ñt|51979014679|BARBERA">RUTH ELIZABETH ÑT</option>
               </select>
             </div>
-
             <div class="form-row">
               <div class="form-group">
                 <label>Fecha</label>
@@ -1455,105 +1349,95 @@ html[data-theme-transition] * {
                 </select>
               </div>
             </div>
-
             <div class="form-group">
               <label>Nombre Completo</label>
               <input type="text" class="form-control" id="name" placeholder="Tu nombre" required>
             </div>
-
             <div class="form-group">
               <label>Teléfono</label>
               <input type="tel" class="form-control" id="phone" placeholder="+51 9XX XXX XXX" required>
             </div>
-
-            <!-- ✅ EMAIL ELIMINADO -->
           </div>
-
-          <div class="booking-summary" id="summary" style="display: none;">
-            <div class="summary-item">
-              <span>SERVICIO:</span>
-              <span id="sumService">-</span>
-            </div>
-            <div class="summary-item">
-              <span>PROFESIONAL:</span>
-              <span id="sumProfessional">-</span>
-            </div>
-            <div class="summary-item">
-              <span>FECHA:</span>
-              <span id="sumDate">-</span>
-            </div>
-            <div class="summary-item">
-              <span>TOTAL:</span>
-              <span id="sumPrice">S/ 0</span>
-            </div>
-          </div>
-
           <button class="btn" id="confirmBtn" onclick="confirmBooking()" style="width: 100%; justify-content: center; margin-top: 12px; font-size: 1rem; padding: 16px;">
             <i class="fas fa-check-circle"></i> Confirmar Reserva
           </button>
         </div>
-
-        <!-- ✅ MODAL DE CARGA -->
-        <div class="loading-modal" id="loadingModal">
-          <div class="loading-icon">
-            <i class="fas fa-spinner"></i>
-          </div>
-          <h3>Procesando Reserva</h3>
-          <p>Guardando tu cita en nuestro sistema...</p>
-        </div>
-
-        <!-- ✅ MODAL DE ÉXITO -->
-        <div class="confirmation" id="confirmation">
-          <div class="confirmation-icon">
-            <i class="fas fa-check"></i>
-          </div>
-          <h3>¡Reserva Confirmada!</h3>
-          <p>Tu cita ha sido guardada exitosamente. Te esperamos puntual.</p>
-          
-          <div class="confirmation-note">
-            <i class="fas fa-info-circle"></i> <strong>Recuerda:</strong> Llega 5 minutos antes. Si necesitas cancelar, contáctanos con 24h de anticipación.
-          </div>
-          
-          <button class="btn btn-reset" onclick="resetForm()">
-            <i class="fas fa-plus"></i> Nueva Reserva
-          </button>
-        </div>
-
-        <!-- ✅ MODAL DE ERROR -->
-        <div class="error-modal" id="errorModal">
-          <div class="error-icon">
-            <i class="fas fa-exclamation-triangle"></i>
-          </div>
-          <h3>Error en la Reserva</h3>
-          <p>Lo sentimos, no se pudo procesar tu reserva. Puedes intentar nuevamente o reservarlo manualmente.</p>
-          
-          <button class="btn" onclick="resetForm()">
-            <i class="fas fa-redo"></i> Intentar Nuevamente
-          </button>
-          <br>
-          <a href="https://wa.me/51977355999" class="btn btn-whatsapp-fallback" target="_blank">
-            <i class="fab fa-whatsapp"></i> Reservar por WhatsApp
-          </a>
-        </div>
-
       </div>
     </div>
   </section>
+
+  <!-- === MODALES OVERLAY CENTRADOS === -->
+
+  <!-- Modal Cargando -->
+  <div class="modal-overlay" id="loadingOverlay">
+    <div class="modal-box-content">
+      <div class="loading-icon"></div>
+      <h3>Reservando...</h3>
+      <p>Guardando tu cita en nuestro sistema</p>
+    </div>
+  </div>
+
+  <!-- Modal Éxito -->
+  <div class="modal-overlay modal-success" id="successOverlay">
+    <div class="modal-box-content">
+      <div class="success-icon">
+        <i class="fas fa-check"></i>
+      </div>
+      <h3>¡Reserva Confirmada!</h3>
+      <p>Tu cita ha sido guardada exitosamente. Te esperamos puntual.</p>
+      <div class="success-note">
+        <i class="fas fa-info-circle"></i> <strong>Recuerda:</strong> Llega 5 minutos antes. Si necesitas cancelar, contáctanos con 24h de anticipación.
+      </div>
+      <button class="btn btn-reset" onclick="resetForm()">
+        <i class="fas fa-plus"></i> Nueva Reserva
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Error -->
+  <div class="modal-overlay modal-error" id="errorOverlay">
+    <div class="modal-box-content">
+      <div class="error-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <h3>Error en la Reserva</h3>
+      <p>Lo sentimos, no se pudo procesar tu reserva. Puedes intentar nuevamente o reservarlo manualmente.</p>
+      <button class="btn" onclick="resetForm()">
+        <i class="fas fa-redo"></i> Intentar Nuevamente
+      </button>
+      <br>
+      <a href="https://wa.me/51977355999" class="btn btn-whatsapp-fallback" target="_blank">
+        <i class="fab fa-whatsapp"></i> Reservar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- Modal Campos Incompletos -->
+  <div class="modal-overlay" id="warningOverlay">
+    <div class="modal-box-content" style="position: relative;">
+      <button class="modal-close" onclick="closeWarningModal()">&times;</button>
+      <div class="warning-modal-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <h3 style="color: var(--primary-light); font-size: 1.4rem; margin-bottom: 14px; text-transform: uppercase;">Datos Incompletos</h3>
+      <p style="color: var(--gray); font-size: 1rem; margin-bottom: 28px;">Para confirmar tu reserva, completa todos los campos obligatorios. ¡Es rápido y seguro!</p>
+      <button class="btn" onclick="closeWarningModal()">
+        <i class="fas fa-arrow-down"></i> Ir al Formulario
+      </button>
+    </div>
+  </div>
 
   <section id="ubicacion" class="location-section">
     <div class="container">
       <div class="section-header">
         <h2>Ubicación</h2>
       </div>
-      
       <div class="location-grid">
         <div class="map-frame">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.1234567890123!2d-73.39512345678901!3d-13.654321098765432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916f0c1234567890%3A0x1234567890abcdef!2sAv.%20Juan%20Antonio%20Trelles%20153%2C%20Andahuaylas!5e1!3m2!1ses!2spe!4v1234567890123!5m2!1ses!2spe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de La Magia Del Barbero"></iframe>
         </div>
-        
         <div class="contact-panel">
           <h3><i class="fas fa-headset"></i> Contacto</h3>
-          
           <div class="contact-item">
             <i class="fas fa-map-marker-alt"></i>
             <div>
@@ -1561,7 +1445,6 @@ html[data-theme-transition] * {
               <p>Av. Juan Antonio Trelles 153, Andahuaylas, Perú</p>
             </div>
           </div>
-          
           <div class="contact-item">
             <i class="fas fa-phone"></i>
             <div>
@@ -1569,7 +1452,6 @@ html[data-theme-transition] * {
               <p><a href="tel:+51977355999">+51 977 355 999</a></p>
             </div>
           </div>
-          
           <div class="contact-item">
             <i class="fas fa-envelope"></i>
             <div>
@@ -1577,7 +1459,6 @@ html[data-theme-transition] * {
               <p><a href="mailto:kennedyramirez27@gmail.com">kennedyramirez27@gmail.com</a></p>
             </div>
           </div>
-          
           <a href="https://wa.me/51977355999" class="btn" style="width: 100%; justify-content: center; margin-top: 20px;">
             <i class="fab fa-whatsapp"></i> Contactar
           </a>
@@ -1591,7 +1472,6 @@ html[data-theme-transition] * {
       <div class="footer-logo">
         <img id="footerLogo" src="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/logo%20neon%20dorado.png" alt="La Magia Del Barbero - Logo Neón">
       </div>
-      
       <div class="social-bar">
         <a href="https://www.facebook.com/share/1BHEnX7T2R/" target="_blank" class="social-btn" title="Facebook">
           <i class="fab fa-facebook-f"></i>
@@ -1603,7 +1483,6 @@ html[data-theme-transition] * {
           <i class="fab fa-whatsapp"></i>
         </a>
       </div>
-      
       <div class="copyright">
         &copy; <span id="year"></span> La Magia y Barbero - Todos los derechos reservados<br>
         <a href="https://bermat-code-pz0m.onrender.com/" target="_blank">© BERMA𝐓-CODE𖤍</a>
@@ -1615,24 +1494,9 @@ html[data-theme-transition] * {
     <img id="whatsappImg" src="https://raw.githubusercontent.com/BerMatCode/La-Magia-Del-Barbero/main/WhatsApp%20dorado.png" alt="WhatsApp">
   </a>
 
-  <!-- Modal de advertencia de campos incompletos -->
-  <div class="modal" id="warningModal">
-    <div class="modal-box">
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-      <div class="modal-icon">
-        <i class="fas fa-exclamation-triangle"></i>
-      </div>
-      <h3 class="modal-title"> Datos Incompletos</h3>
-      <p class="modal-text">Para confirmar tu reserva, completa todos los campos obligatorios. ¡Es rápido y seguro!</p>
-      <button class="modal-btn" onclick="closeModalAndScroll()">
-        <i class="fas fa-arrow-down"></i> Ir al Formulario
-      </button>
-    </div>
-  </div>
-
   <!-- ✅ JAVASCRIPT CON FIREBASE -->
   <script>
-    // === CONFIGURACIÓN DE FIREBASE ===
+    // === FIREBASE ===
     const firebaseConfig = {
       apiKey: "AIzaSyCfpqyhfHJIrxHIukoHm_G3r_DFIKAQgnU",
       authDomain: "la-magia-del-barbero1.firebaseapp.com",
@@ -1643,14 +1507,11 @@ html[data-theme-transition] * {
       measurementId: "G-ZNXJLD03JY"
     };
 
-    // Inicializar Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-    
-    // Referencia a la colección de reservas
     const reservationsRef = db.collection('reservations');
 
-    // === CONFIGURACIÓN DE TEMA ===
+    // === TEMA ===
     const themeToggle = document.getElementById('themeToggle');
     const footerLogo = document.getElementById('footerLogo');
     const whatsappImg = document.getElementById('whatsappImg');
@@ -1683,14 +1544,9 @@ html[data-theme-transition] * {
         themeToggle.style.transform = '';
         htmlEl.removeAttribute('data-theme-transition');
       }, 300);
-      const originalText = themeToggle.innerHTML;
-      themeToggle.innerHTML = newTheme === 'purple' ? '💈𝗕𝗮𝗿𝗯𝗲𝗿 𝗦𝗵𝗼𝗽💈' : '💈𝗕𝗮𝗿𝗯𝗲𝗿 𝗦𝗵𝗼𝗽💈';
-      setTimeout(() => {
-        themeToggle.innerHTML = originalText;
-      }, 1500);
     });
 
-    // === FUNCIONES GENERALES ===
+    // === GENERALES ===
     document.getElementById('year').textContent = new Date().getFullYear();
 
     let ticking = false;
@@ -1732,80 +1588,100 @@ html[data-theme-transition] * {
       }, 800);
     }
 
-    function updateSummary() {
-      const service = document.getElementById('service').value;
-      const professional = document.getElementById('professional').value;
-      const date = document.getElementById('date').value;
-      if (service && professional && date) {
-        const [serviceName, price] = service.split('|');
-        const [profName] = professional.split('|');
-        document.getElementById('sumService').textContent = serviceName.toUpperCase();
-        document.getElementById('sumProfessional').textContent = profName.toUpperCase();
-        const [year, month, day] = date.split('-');
-        const dateObj = new Date(year, month - 1, day);
-        document.getElementById('sumDate').textContent = dateObj.toLocaleDateString('es-PE', {
-          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-        }).toUpperCase();
-        document.getElementById('sumPrice').textContent = 'S/ ' + price;
-        document.getElementById('summary').style.display = 'block';
-      } else {
-        document.getElementById('summary').style.display = 'none';
+    // === 🕐 FILTRO DE HORAS PASADAS ===
+    function updateAvailableHours() {
+      const dateInput = document.getElementById('date');
+      const timeSelect = document.getElementById('time');
+      const selectedDate = dateInput.value;
+      
+      if (!selectedDate) return;
+
+      const today = new Date();
+      const todayStr = today.toISOString().split('T')[0];
+      const currentHour = today.getHours();
+      const currentMinute = today.getMinutes();
+
+      // Resetear todas las opciones
+      const options = timeSelect.querySelectorAll('option');
+      options.forEach(option => {
+        if (option.value === '') {
+          option.disabled = false;
+          return;
+        }
+        option.disabled = false;
+        option.style.display = '';
+      });
+
+      // Si la fecha seleccionada es HOY, deshabilitar horas pasadas
+      if (selectedDate === todayStr) {
+        // Calcular hora mínima (hora actual + redondeo)
+        let minHour = currentHour;
+        if (currentMinute > 0) minHour = currentHour + 1;
+
+        options.forEach(option => {
+          if (option.value === '') return;
+          const optionHour = parseInt(option.value.split(':')[0]);
+          if (optionHour < minHour) {
+            option.disabled = true;
+            option.style.display = 'none';
+          }
+        });
+
+        // Si la hora seleccionada fue deshabilitada, resetear
+        if (timeSelect.value) {
+          const selectedTimeHour = parseInt(timeSelect.value.split(':')[0]);
+          if (selectedTimeHour < minHour) {
+            timeSelect.value = '';
+          }
+        }
       }
     }
 
-    ['service', 'professional', 'date'].forEach(id => {
-      document.getElementById(id).addEventListener('change', updateSummary);
-    });
+    document.getElementById('date').addEventListener('change', updateAvailableHours);
 
-    function showModal() {
-      document.getElementById('warningModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      document.getElementById('warningModal').classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function closeModalAndScroll() {
-      closeModal();
-      document.getElementById('reservas').scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => {
-        document.getElementById('service').focus();
-      }, 800);
-    }
-
-    document.getElementById('warningModal').addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
-    });
-
-    // === MODALES DE RESERVA ===
+    // === MODALES ===
     function showLoading() {
-      hideAllModals();
-      document.getElementById('loadingModal').classList.add('active');
+      hideAllOverlays();
+      document.getElementById('loadingOverlay').classList.add('active');
       document.getElementById('confirmBtn').disabled = true;
     }
 
     function showSuccess() {
-      hideAllModals();
-      document.getElementById('confirmation').classList.add('active');
+      hideAllOverlays();
+      document.getElementById('successOverlay').classList.add('active');
       document.getElementById('confirmBtn').disabled = false;
     }
 
     function showError() {
-      hideAllModals();
-      document.getElementById('errorModal').classList.add('active');
+      hideAllOverlays();
+      document.getElementById('errorOverlay').classList.add('active');
       document.getElementById('confirmBtn').disabled = false;
     }
 
-    function hideAllModals() {
-      document.getElementById('bookingForm').style.display = 'none';
-      document.getElementById('loadingModal').classList.remove('active');
-      document.getElementById('confirmation').classList.remove('active');
-      document.getElementById('errorModal').classList.remove('active');
+    function showWarning() {
+      document.getElementById('warningOverlay').classList.add('active');
     }
 
-    // === FUNCIÓN PRINCIPAL: CONFIRMAR RESERVA CON FIREBASE ===
+    function closeWarningModal() {
+      document.getElementById('warningOverlay').classList.remove('active');
+    }
+
+    function hideAllOverlays() {
+      document.getElementById('loadingOverlay').classList.remove('active');
+      document.getElementById('successOverlay').classList.remove('active');
+      document.getElementById('errorOverlay').classList.remove('active');
+      document.getElementById('warningOverlay').classList.remove('active');
+    }
+
+    // Cerrar modales con Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        hideAllOverlays();
+        closeWarningModal();
+      }
+    });
+
+    // === CONFIRMAR RESERVA ===
     async function confirmBooking() {
       const service = document.getElementById('service').value;
       const professional = document.getElementById('professional').value;
@@ -1813,14 +1689,12 @@ html[data-theme-transition] * {
       const time = document.getElementById('time').value;
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
-      
-      // Validación de campos
+
       if (!service || !professional || !date || !time || !name || !phone) {
-        showModal();
+        showWarning();
         return;
       }
 
-      // Mostrar loading
       showLoading();
 
       try {
@@ -1832,7 +1706,6 @@ html[data-theme-transition] * {
           weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
         }).toUpperCase();
 
-        // Crear objeto de reserva
         const reservationData = {
           service: serviceName,
           professional: profId,
@@ -1848,54 +1721,44 @@ html[data-theme-transition] * {
           status: 'pending'
         };
 
-        // Guardar en Firestore con ID único
-        const docRef = await reservationsRef.add(reservationData);
-        
-        console.log('Reserva guardada con ID:', docRef.id);
+        await reservationsRef.add(reservationData);
 
-        // Simular pequeño delay para mejor UX (~1 segundo)
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Pequeño delay para UX
+        await new Promise(resolve => setTimeout(resolve, 1500));
 
-        // Mostrar éxito
         showSuccess();
 
       } catch (error) {
         console.error('Error al guardar reserva:', error);
-        // Mostrar error con opción de fallback a WhatsApp
         showError();
       }
     }
 
     function resetForm() {
-      document.getElementById('bookingForm').style.display = 'block';
-      document.getElementById('loadingModal').classList.remove('active');
-      document.getElementById('confirmation').classList.remove('active');
-      document.getElementById('errorModal').classList.remove('active');
+      hideAllOverlays();
       document.getElementById('service').value = '';
       document.getElementById('professional').value = 'Kennedy Ramirez|51977355999|BARBERO';
       document.getElementById('date').value = '';
       document.getElementById('time').value = '';
       document.getElementById('name').value = '';
       document.getElementById('phone').value = '';
-      document.getElementById('summary').style.display = 'none';
       document.getElementById('confirmBtn').disabled = false;
-      document.getElementById('bookingForm').scrollIntoView({ behavior: 'smooth' });
+
+      // Resetear horas disponibles
+      const options = document.getElementById('time').querySelectorAll('option');
+      options.forEach(option => {
+        option.disabled = false;
+        option.style.display = '';
+      });
+
+      document.getElementById('reservas').scrollIntoView({ behavior: 'smooth' });
     }
 
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('date').setAttribute('min', today);
 
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('confirmation').classList.remove('active');
-      document.getElementById('errorModal').classList.remove('active');
-      document.getElementById('loadingModal').classList.remove('active');
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
-    });
+    // Inicializar
+    hideAllOverlays();
   </script>
 </body>
 </html>
