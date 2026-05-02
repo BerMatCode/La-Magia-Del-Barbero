@@ -631,6 +631,7 @@ section { padding: 80px 0; }
   visibility: hidden;
   transition: var(--transition);
   padding: 20px;
+  cursor: pointer;
 }
 .modal-overlay.active {
   opacity: 1;
@@ -648,6 +649,8 @@ section { padding: 80px 0; }
   box-shadow: 0 25px 70px var(--primary-glow);
   animation: modalPop 0.35s ease;
   transition: var(--transition);
+  cursor: default;
+  position: relative;
 }
 [data-theme="purple"] .modal-box-content {
   border-color: rgba(157, 0, 255, 0.6);
@@ -791,27 +794,59 @@ section { padding: 80px 0; }
   box-shadow: 0 10px 30px rgba(255, 56, 56, 0.5);
   animation: warningPulse 1.5s infinite;
 }
+
+/* ✅ BOTÓN X MEJORADO PARA MODALES */
 .modal-close {
   position: absolute;
   top: 18px;
   right: 18px;
-  background: transparent;
-  border: none;
-  color: var(--gray);
-  width: 35px;
-  height: 35px;
+  background: rgba(15, 15, 15, 0.7);
+  border: 2px solid var(--primary);
+  color: var(--primary-light);
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  font-weight: 700;
   transition: var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 .modal-close:hover {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
   color: white;
-  box-shadow: 0 0 20px var(--primary-glow);
+  border-color: var(--primary-light);
+  box-shadow: 0 0 30px var(--primary-glow);
+  transform: rotate(90deg) scale(1.1);
+}
+.modal-close:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+.modal-error .modal-close {
+  border-color: #ff4757;
+  color: #ff6b6b;
+}
+.modal-error .modal-close:hover {
+  background: linear-gradient(135deg, #ff4757, #ff3838);
+  border-color: #ff6b6b;
+  box-shadow: 0 0 30px rgba(255, 71, 87, 0.6);
+}
+
+.modal-success .modal-close {
+  border-color: #25D366;
+  color: #25D366;
+}
+.modal-success .modal-close:hover {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border-color: #25D366;
+  box-shadow: 0 0 30px rgba(37, 211, 102, 0.6);
 }
 
 /* === UBICACIÓN === */
@@ -1380,6 +1415,7 @@ html[data-theme-transition] * {
   <!-- Modal Éxito -->
   <div class="modal-overlay modal-success" id="successOverlay">
     <div class="modal-box-content">
+      <button class="modal-close" onclick="closeSuccessModal()" title="Cerrar">&times;</button>
       <div class="success-icon">
         <i class="fas fa-check"></i>
       </div>
@@ -1397,6 +1433,7 @@ html[data-theme-transition] * {
   <!-- Modal Error -->
   <div class="modal-overlay modal-error" id="errorOverlay">
     <div class="modal-box-content">
+      <button class="modal-close" onclick="hideAllOverlays()" title="Cerrar">&times;</button>
       <div class="error-icon">
         <i class="fas fa-exclamation-triangle"></i>
       </div>
@@ -1415,7 +1452,7 @@ html[data-theme-transition] * {
   <!-- Modal Campos Incompletos -->
   <div class="modal-overlay" id="warningOverlay">
     <div class="modal-box-content" style="position: relative;">
-      <button class="modal-close" onclick="closeWarningModal()">&times;</button>
+      <button class="modal-close" onclick="closeWarningModal()" title="Cerrar">&times;</button>
       <div class="warning-modal-icon">
         <i class="fas fa-exclamation-triangle"></i>
       </div>
@@ -1666,12 +1703,24 @@ html[data-theme-transition] * {
       document.getElementById('warningOverlay').classList.remove('active');
     }
 
+    // ✅ NUEVA FUNCIÓN: Cerrar modal de éxito
+    function closeSuccessModal() {
+      document.getElementById('successOverlay').classList.remove('active');
+    }
+
     function hideAllOverlays() {
       document.getElementById('loadingOverlay').classList.remove('active');
       document.getElementById('successOverlay').classList.remove('active');
       document.getElementById('errorOverlay').classList.remove('active');
       document.getElementById('warningOverlay').classList.remove('active');
     }
+
+    // ✅ Cerrar modal de éxito al hacer clic en el overlay (fondo difuminado)
+    document.getElementById('successOverlay').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeSuccessModal();
+      }
+    });
 
     // Cerrar modales con Escape
     document.addEventListener('keydown', function(e) {
