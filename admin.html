@@ -252,6 +252,7 @@ body {
   border: 1px solid rgba(30, 136, 229, 0.08);
   border-radius: 14px; padding: 16px 20px; margin-bottom: 10px;
   transition: var(--transition); box-shadow: var(--card-shadow);
+  cursor: pointer;
 }
 .reservation-item:hover { box-shadow: var(--card-hover); transform: translateY(-2px); border-color: #81D4FA; }
 .res-item-top {
@@ -263,6 +264,7 @@ body {
 .res-time-badge {
   padding: 5px 14px; border-radius: 18px; font-size: 0.95rem;
   font-weight: 700; white-space: nowrap; letter-spacing: 0.5px;
+  display: flex; align-items: center; gap: 5px;
 }
 .res-time-badge.passed {
   background: linear-gradient(135deg, var(--red-badge), var(--red-light));
@@ -597,6 +599,14 @@ body {
   const db = firebase.firestore();
   const reservationsRef = db.collection('reservations');
 
+  // === FUNCIÓN CLAVE: Obtener fecha local en formato YYYY-MM-DD ===
+  function getLocalDateStr(date = new Date()) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
   // === LOGIN PERSISTENTE (localStorage) ===
   if (localStorage.getItem('adminOK') === '1') {
     document.getElementById('loginOverlay').classList.add('hidden');
@@ -670,6 +680,14 @@ body {
           if (data.timestamp && typeof data.timestamp.toDate === 'function') {
             data.timestamp = data.timestamp.toDate();
           }
+          // Asegurar que dateISO esté en formato local YYYY-MM-DD
+          if (data.date && !data.dateISO) {
+            // Si tiene date pero no dateISO, intentar parsear
+            const parts = data.date.split('/');
+            if (parts.length === 3) {
+              data.dateISO = `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+            }
+          }
           allReservations.push({ id: doc.id, ...data });
         });
         dataLoaded = true;
@@ -679,7 +697,7 @@ body {
       error => {
         console.error('❌ Error Firebase:', error);
         if (loadTimeout) { clearTimeout(loadTimeout); loadTimeout = null; }
-        dataLoaded = true; // Evitar pantalla blanca
+        dataLoaded = true;
         if (!calendarOpen) renderListView();
         if (calendarOpen) { renderCalendar(); if (selectedDate) renderDayReservations(selectedDate); }
       }
@@ -711,23 +729,28 @@ body {
     return motivationalPhrases[new Date().getDay()];
   }
 
-  // === VERIFICAR SI PASÓ LA HORA ===
+  // === VERIFICAR SI PASÓ LA HORA (CORREGIDO CON TIMEZONE LOCAL) ===
   function isPassed(res) {
-    const today = new Date().toISOString().split('T')[0];
-    if (res.dateISO !== today || !res.time) return false;
+    const todayLocal = getLocalDateStr();
+    // Solo marcar como "pasado" si es HOY y la hora ya pasó
+    if (res.dateISO !== todayLocal || !res.time) return false;
+    
     const now = new Date();
     const nowMin = now.getHours() * 60 + now.getMinutes();
-    const [h, m] = res.time.split(':').map(Number);
-    return (h * 60 + m) < nowMin;
+    const [h, m] = (res.time || '00:00').split(':').map(Number);
+    const resMin = h * 60 + (m || 0);
+    
+    return resMin < nowMin;
   }
 
-  // === RENDERIZAR LISTA ===
+  // === RENDERIZAR LISTA DE HOY (CORREGIDO) ===
   function renderListView() {
     const container = document.getElementById('listContainer');
     if (!dataLoaded) { renderLoadingState(); return; }
     
-    const today = new Date().toISOString().split('T')[0];
-    const todayList = allReservations.filter(r => r.dateISO === today);
+    // Usar fecha local consistente para filtrar
+    const todayLocal = getLocalDateStr();
+    const todayList = allReservations.filter(r => r.dateISO === todayLocal);
     todayList.sort((a, b) => (a.time || '').localeCompare(b.time || ''));
     
     document.getElementById('listCount').textContent = todayList.length + ' cita' + (todayList.length !== 1 ? 's' : '');
@@ -752,10 +775,12 @@ body {
       const proName = res.professional || res.professionalName || '';
       const passed = isPassed(res);
       const badgeClass = passed ? 'passed' : 'pending';
+      const badgeText = passed ? '<i class="fas fa-check"></i> Pasó' : '<i class="fas fa-clock"></i> Pendiente';
+      
       item.innerHTML = `
         <div class="res-item-top">
           <div class="res-item-name"><strong>${res.name || 'Sin nombre'}</strong></div>
-          <div class="res-time-badge ${badgeClass}"><i class="fas fa-clock"></i> ${res.time || '--:--'}</div>
+          <div class="res-time-badge ${badgeClass}">${badgeText} ${res.time || '--:--'}</div>
         </div>
         <div class="res-item-details">
           <div class="res-detail"><i class="fas fa-cut cut"></i><div><span class="detail-label">Servicio</span><span class="detail-value">${res.service || 'N/A'}</span></div></div>
@@ -811,22 +836,33 @@ body {
     const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
     const dayNames = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
     document.getElementById('calMonthYear').textContent = monthNames[calMonth] + ' ' + calYear;
+    
+    // Contar reservas por fecha (usando dateISO local)
     const dayCounts = {};
-    allReservations.forEach(r => { if (r.dateISO) dayCounts[r.dateISO] = (dayCounts[r.dateISO] || 0) + 1; });
+    allReservations.forEach(r => { 
+      if (r.dateISO) dayCounts[r.dateISO] = (dayCounts[r.dateISO] || 0) + 1; 
+    });
+    
     const today = new Date();
     const todayDate = today.getDate();
     const isCurrentMonth = today.getFullYear() === calYear && today.getMonth() === calMonth;
+    
     let html = '';
     dayNames.forEach(d => { html += `<div class="cal-day-name">${d}</div>`; });
+    
     const firstDay = new Date(calYear, calMonth, 1).getDay();
     for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
+    
     const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
     for (let d = 1; d <= daysInMonth; d++) {
       let classes = 'cal-day';
+      // Generar dateStr en formato local consistente
       const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      
       if (dayCounts[dateStr]) classes += ' has-res';
       if (isCurrentMonth && d === todayDate) classes += ' today';
       if (selectedDate === dateStr) classes += ' selected';
+      
       const countBadge = dayCounts[dateStr] ? `<span class="res-count">${dayCounts[dateStr]}</span>` : '';
       html += `<div class="${classes}" onclick="selectDay('${dateStr}')"><span class="day-num">${d}</span>${countBadge}</div>`;
     }
@@ -845,13 +881,19 @@ body {
       container.innerHTML = `<div class="loading-state"><div class="loading-spinner"></div><p style="color:var(--text-gray);font-size:1rem;">Cargando...</p></div>`;
       return;
     }
+    
     const [year, month, day] = dateStr.split('-');
-    const dateObj = new Date(year, month - 1, day);
+    // Crear fecha con hora 12:00 para evitar problemas de timezone al formatear
+    const dateObj = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 12, 0, 0);
+    
     const dayName = dateObj.toLocaleDateString('es-PE', { weekday: 'long' });
     const dateFormatted = dateObj.toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' });
+    
     const dayList = allReservations.filter(r => r.dateISO === dateStr);
     dayList.sort((a, b) => (a.time || '').localeCompare(b.time || ''));
+    
     let html = `<div class="day-res-header"><span class="day-res-badge"><i class="fas fa-calendar-day"></i> ${dayList.length} reserva${dayList.length !== 1 ? 's' : ''}</span><span class="day-res-date">Reservas para el <strong>${dayName} ${dateFormatted}</strong></span></div>`;
+    
     if (dayList.length === 0) {
       html += `<div class="empty-state" style="margin-top:12px;"><i class="fas fa-inbox" style="color:#BDBDBD;font-size:2.5rem;"></i><h3 style="color:#757575;margin:10px 0 5px;">Sin reservas</h3><p style="color:#9E9E9E;font-size:0.95rem;">No hay citas para este día</p><div class="motivational">"${getTodaysMotivation()}"</div></div>`;
     } else {
@@ -859,7 +901,20 @@ body {
         const proName = res.professional || res.professionalName || '';
         const passed = isPassed(res);
         const badgeClass = passed ? 'passed' : 'pending';
-        html += `<div class="reservation-item" onclick="openModal(allReservations.find(r => r.id === '${res.id}'))"><div class="res-item-top"><div class="res-item-name"><strong>${res.name || 'Sin nombre'}</strong></div><div class="res-time-badge ${badgeClass}"><i class="fas fa-clock"></i> ${res.time || '--:--'}</div></div><div class="res-item-details"><div class="res-detail"><i class="fas fa-cut cut"></i><div><span class="detail-label">Servicio</span><span class="detail-value">${res.service || 'N/A'}</span></div></div><div class="res-detail"><i class="fas fa-user-tie user"></i><div><span class="detail-label">Profesional</span><span class="detail-value">${proName}</span></div></div><div class="res-detail"><i class="fas fa-phone phone"></i><div><span class="detail-label">Teléfono</span><span class="detail-value">${res.phone || 'N/A'}</span></div></div><div class="res-detail"><i class="fas fa-coins price"></i><div><span class="detail-label">Precio</span><span class="detail-value gold">S/ ${res.price || '0'}</span></div></div></div></div>`;
+        const badgeText = passed ? '<i class="fas fa-check"></i> Pasó' : '<i class="fas fa-clock"></i> Pendiente';
+        
+        html += `<div class="reservation-item" onclick="openModal(allReservations.find(r => r.id === '${res.id}'))">
+          <div class="res-item-top">
+            <div class="res-item-name"><strong>${res.name || 'Sin nombre'}</strong></div>
+            <div class="res-time-badge ${badgeClass}">${badgeText} ${res.time || '--:--'}</div>
+          </div>
+          <div class="res-item-details">
+            <div class="res-detail"><i class="fas fa-cut cut"></i><div><span class="detail-label">Servicio</span><span class="detail-value">${res.service || 'N/A'}</span></div></div>
+            <div class="res-detail"><i class="fas fa-user-tie user"></i><div><span class="detail-label">Profesional</span><span class="detail-value">${proName}</span></div></div>
+            <div class="res-detail"><i class="fas fa-phone phone"></i><div><span class="detail-label">Teléfono</span><span class="detail-value">${res.phone || 'N/A'}</span></div></div>
+            <div class="res-detail"><i class="fas fa-coins price"></i><div><span class="detail-label">Precio</span><span class="detail-value gold">S/ ${res.price || '0'}</span></div></div>
+          </div>
+        </div>`;
       });
     }
     container.innerHTML = html;
@@ -870,12 +925,24 @@ body {
     currentModalRes = res;
     document.getElementById('mName').textContent = res.name || 'Sin nombre';
     document.getElementById('mService').textContent = res.service || 'Sin servicio';
-    document.getElementById('mDate').textContent = res.date || 'N/A';
+    
+    // Formatear fecha correctamente si existe
+    if (res.date) {
+      document.getElementById('mDate').textContent = res.date;
+    } else if (res.dateISO) {
+      const [y, m, d] = res.dateISO.split('-');
+      const dateObj = new Date(parseInt(y), parseInt(m)-1, parseInt(d), 12, 0, 0);
+      document.getElementById('mDate').textContent = dateObj.toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    } else {
+      document.getElementById('mDate').textContent = 'N/A';
+    }
+    
     document.getElementById('mTime').textContent = res.time || 'N/A';
     document.getElementById('mCut').textContent = res.service || 'N/A';
     document.getElementById('mPrice').textContent = 'S/ ' + (res.price || '0');
     document.getElementById('mPro').textContent = res.professional || res.professionalName || 'No especificado';
     document.getElementById('mPhone').textContent = res.phone || 'N/A';
+    
     let reservedAt = 'N/A';
     if (res.timestamp) {
       try {
@@ -884,14 +951,17 @@ body {
       } catch(e) {}
     }
     document.getElementById('mReserved').textContent = reservedAt;
+    
     document.getElementById('detailModal').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
+  
   function closeModal() {
     document.getElementById('detailModal').classList.remove('active');
     document.body.style.overflow = '';
     currentModalRes = null;
   }
+  
   function sendWhatsAppFromModal() {
     if (!currentModalRes) return;
     const res = currentModalRes;
@@ -901,14 +971,18 @@ body {
     const service = (res.service || 'SERVICIO').toUpperCase();
     const time = res.time || '';
     const date = res.date || '';
-    const today = new Date().toISOString().split('T')[0];
-    const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    const today = getLocalDateStr();
+    const tomorrow = new Date(Date.now() + 86400000);
+    const tomorrowStr = getLocalDateStr(tomorrow);
+    
     let dayRef = date.toUpperCase();
     if (res.dateISO === today) dayRef = 'HOY';
-    else if (res.dateISO === tomorrow) dayRef = 'MAÑANA';
+    else if (res.dateISO === tomorrowStr) dayRef = 'MAÑANA';
+    
     const msg = `💈  LA MAGIA DEL BARBERO  💈\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n¡HOLA *${name}*! 👋\n\nLE RECORDAMOS AMABLEMENTE SU RESERVA:\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅  DÍA: *${dayRef}*\n⏰  HORA: *${time}*\n✂️  SERVICIO: *${service}*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n¡LO ESPERAMOS CON MUCHO GUSTO! 😊\nGRACIAS POR ELEGIRNOS 🙏`;
     window.open(`https://wa.me/${fullPhone}?text=${encodeURIComponent(msg)}`, '_blank');
   }
+  
   document.getElementById('detailModal').addEventListener('click', e => { if (e.target === this) closeModal(); });
 
   // === MODAL LOGOUT ===
