@@ -451,6 +451,11 @@ body {
 </head>
 <body>
 
+<!-- AUDIO DE NOTIFICACIÓN -->
+<audio id="newResAudio" preload="auto">
+  <source src="https://github.com/BerMatCode/La-Magia-Del-Barbero/raw/refs/heads/main/nueva%20reservaci%C3%B3n.mp3" type="audio/mpeg">
+</audio>
+
 <!-- LOGIN -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-card">
@@ -607,6 +612,28 @@ body {
     return `${y}-${m}-${d}`;
   }
 
+  // === CORRECCIÓN 1: isPassed() AHORA VERIFICA FECHAS PASADAS CORRECTAMENTE ===
+  function isPassed(res) {
+    if (!res.dateISO || !res.time) return false;
+    
+    const todayLocal = getLocalDateStr();
+    
+    // Si la fecha de la reserva es anterior a hoy, YA PASÓ
+    if (res.dateISO < todayLocal) return true;
+    
+    // Si es hoy, verificar si la hora ya pasó
+    if (res.dateISO === todayLocal) {
+      const now = new Date();
+      const nowMin = now.getHours() * 60 + now.getMinutes();
+      const [h, m] = (res.time || '00:00').split(':').map(Number);
+      const resMin = h * 60 + (m || 0);
+      return resMin < nowMin;
+    }
+    
+    // Si es fecha futura, NO ha pasado
+    return false;
+  }
+
   // === LOGIN PERSISTENTE (localStorage) ===
   if (localStorage.getItem('adminOK') === '1') {
     document.getElementById('loginOverlay').classList.add('hidden');
@@ -643,6 +670,23 @@ body {
   let calYear, calMonth, selectedDate = null;
   let currentModalRes = null;
   let dataLoaded = false;
+  
+  // === CORRECCIÓN 2: VARIABLES PARA AUDIO DE NOTIFICACIÓN ===
+  let initialLoadDone = false;
+  let previousReservationIds = new Set();
+  const newResAudio = document.getElementById('newResAudio');
+
+  // === FUNCIÓN PARA REPRODUCIR AUDIO ===
+  function playNotificationSound() {
+    try {
+      newResAudio.currentTime = 0;
+      newResAudio.play().catch(e => {
+        console.log('🔇 Audio bloqueado (interacción requerida):', e);
+      });
+    } catch(err) {
+      console.log('⚠️ Error al reproducir audio:', err);
+    }
+  }
 
   // === INICIAR ADMIN ===
   function startAdmin() {
@@ -673,7 +717,8 @@ body {
     unsubscribe = q.onSnapshot(
       snapshot => {
         if (loadTimeout) { clearTimeout(loadTimeout); loadTimeout = null; }
-        allReservations = [];
+        
+        const newReservations = [];
         snapshot.forEach(doc => {
           const data = doc.data();
           // Convertir Timestamp de Firebase a Date nativo
@@ -682,15 +727,44 @@ body {
           }
           // Asegurar que dateISO esté en formato local YYYY-MM-DD
           if (data.date && !data.dateISO) {
-            // Si tiene date pero no dateISO, intentar parsear
             const parts = data.date.split('/');
             if (parts.length === 3) {
               data.dateISO = `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
             }
           }
-          allReservations.push({ id: doc.id, ...data });
+          newReservations.push({ id: doc.id, ...data });
         });
+        
+        // === CORRECCIÓN 2: DETECTAR Y REPRODUCIR AUDIO PARA CADA NUEVA RESERVA ===
+        if (initialLoadDone) {
+          const currentIds = new Set();
+          let newCount = 0;
+          
+          snapshot.forEach(doc => {
+            currentIds.add(doc.id);
+            if (!previousReservationIds.has(doc.id)) {
+              // ¡NUEVA RESERVA DETECTADA! Reproducir audio
+              playNotificationSound();
+              newCount++;
+            }
+          });
+          
+          if (newCount > 0) {
+            console.log(`🔔 ${newCount} nueva(s) reserva(s) detectada(s) - Audio reproducido`);
+          }
+          
+          previousReservationIds = currentIds;
+        }
+        
+        allReservations = newReservations;
         dataLoaded = true;
+        
+        // Marcar carga inicial completada
+        if (!initialLoadDone) {
+          initialLoadDone = true;
+          snapshot.forEach(doc => previousReservationIds.add(doc.id));
+        }
+        
         if (!calendarOpen) renderListView();
         if (calendarOpen) { renderCalendar(); if (selectedDate) renderDayReservations(selectedDate); }
       },
@@ -729,26 +803,29 @@ body {
     return motivationalPhrases[new Date().getDay()];
   }
 
-  // === VERIFICAR SI PASÓ LA HORA (CORREGIDO CON TIMEZONE LOCAL) ===
-  function isPassed(res) {
-    const todayLocal = getLocalDateStr();
-    // Solo marcar como "pasado" si es HOY y la hora ya pasó
-    if (res.dateISO !== todayLocal || !res.time) return false;
+  // === CORRECCIÓN 3: FUNCIÓN PARA GENERAR TEXTO DE BADGE ===
+  function getBadgeText(res) {
+    const passed = isPassed(res);
+    const time = res.time || '--:--';
     
-    const now = new Date();
-    const nowMin = now.getHours() * 60 + now.getMinutes();
-    const [h, m] = (res.time || '00:00').split(':').map(Number);
-    const resMin = h * 60 + (m || 0);
-    
-    return resMin < nowMin;
+    if (passed) {
+      return {
+        class: 'passed',
+        text: `<i class="fas fa-check"></i> Fue para las ${time}`
+      };
+    } else {
+      return {
+        class: 'pending',
+        text: `<i class="fas fa-clock"></i> Pendiente para las ${time}`
+      };
+    }
   }
 
-  // === RENDERIZAR LISTA DE HOY (CORREGIDO) ===
+  // === RENDERIZAR LISTA DE HOY (CON isPassed() CORREGIDO) ===
   function renderListView() {
     const container = document.getElementById('listContainer');
     if (!dataLoaded) { renderLoadingState(); return; }
     
-    // Usar fecha local consistente para filtrar
     const todayLocal = getLocalDateStr();
     const todayList = allReservations.filter(r => r.dateISO === todayLocal);
     todayList.sort((a, b) => (a.time || '').localeCompare(b.time || ''));
@@ -773,14 +850,12 @@ body {
       item.className = 'reservation-item';
       item.onclick = () => openModal(res);
       const proName = res.professional || res.professionalName || '';
-      const passed = isPassed(res);
-      const badgeClass = passed ? 'passed' : 'pending';
-      const badgeText = passed ? '<i class="fas fa-check"></i> Pasó' : '<i class="fas fa-clock"></i> Pendiente';
+      const badge = getBadgeText(res); // ✅ CORRECCIÓN APLICADA
       
       item.innerHTML = `
         <div class="res-item-top">
           <div class="res-item-name"><strong>${res.name || 'Sin nombre'}</strong></div>
-          <div class="res-time-badge ${badgeClass}">${badgeText} ${res.time || '--:--'}</div>
+          <div class="res-time-badge ${badge.class}">${badge.text}</div>
         </div>
         <div class="res-item-details">
           <div class="res-detail"><i class="fas fa-cut cut"></i><div><span class="detail-label">Servicio</span><span class="detail-value">${res.service || 'N/A'}</span></div></div>
@@ -837,7 +912,6 @@ body {
     const dayNames = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
     document.getElementById('calMonthYear').textContent = monthNames[calMonth] + ' ' + calYear;
     
-    // Contar reservas por fecha (usando dateISO local)
     const dayCounts = {};
     allReservations.forEach(r => { 
       if (r.dateISO) dayCounts[r.dateISO] = (dayCounts[r.dateISO] || 0) + 1; 
@@ -856,7 +930,6 @@ body {
     const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
     for (let d = 1; d <= daysInMonth; d++) {
       let classes = 'cal-day';
-      // Generar dateStr en formato local consistente
       const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
       
       if (dayCounts[dateStr]) classes += ' has-res';
@@ -883,7 +956,6 @@ body {
     }
     
     const [year, month, day] = dateStr.split('-');
-    // Crear fecha con hora 12:00 para evitar problemas de timezone al formatear
     const dateObj = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 12, 0, 0);
     
     const dayName = dateObj.toLocaleDateString('es-PE', { weekday: 'long' });
@@ -899,14 +971,12 @@ body {
     } else {
       dayList.forEach(res => {
         const proName = res.professional || res.professionalName || '';
-        const passed = isPassed(res);
-        const badgeClass = passed ? 'passed' : 'pending';
-        const badgeText = passed ? '<i class="fas fa-check"></i> Pasó' : '<i class="fas fa-clock"></i> Pendiente';
+        const badge = getBadgeText(res); // ✅ CORRECCIÓN APLICADA
         
         html += `<div class="reservation-item" onclick="openModal(allReservations.find(r => r.id === '${res.id}'))">
           <div class="res-item-top">
             <div class="res-item-name"><strong>${res.name || 'Sin nombre'}</strong></div>
-            <div class="res-time-badge ${badgeClass}">${badgeText} ${res.time || '--:--'}</div>
+            <div class="res-time-badge ${badge.class}">${badge.text}</div>
           </div>
           <div class="res-item-details">
             <div class="res-detail"><i class="fas fa-cut cut"></i><div><span class="detail-label">Servicio</span><span class="detail-value">${res.service || 'N/A'}</span></div></div>
@@ -926,7 +996,6 @@ body {
     document.getElementById('mName').textContent = res.name || 'Sin nombre';
     document.getElementById('mService').textContent = res.service || 'Sin servicio';
     
-    // Formatear fecha correctamente si existe
     if (res.date) {
       document.getElementById('mDate').textContent = res.date;
     } else if (res.dateISO) {
@@ -962,6 +1031,7 @@ body {
     currentModalRes = null;
   }
   
+  // === CORRECCIÓN 4: MENSAJE WHATSAPP EN NEGRITA, MAYÚSCULAS Y EMOJIS ===
   function sendWhatsAppFromModal() {
     if (!currentModalRes) return;
     const res = currentModalRes;
@@ -979,7 +1049,23 @@ body {
     if (res.dateISO === today) dayRef = 'HOY';
     else if (res.dateISO === tomorrowStr) dayRef = 'MAÑANA';
     
-    const msg = `💈  LA MAGIA DEL BARBERO  💈\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n¡HOLA *${name}*! 👋\n\nLE RECORDAMOS AMABLEMENTE SU RESERVA:\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅  DÍA: *${dayRef}*\n⏰  HORA: *${time}*\n✂️  SERVICIO: *${service}*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n¡LO ESPERAMOS CON MUCHO GUSTO! 😊\nGRACIAS POR ELEGIRNOS 🙏`;
+    // ✅ MENSAJE CON NEGRITA (*), EMOJIS Y FORMATO MEJORADO
+    const msg = `*💈 LA MAGIA DEL BARBERO 💈*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*¡HOLA ${name}!* 👋
+
+*LE RECORDAMOS AMABLEMENTE SU RESERVA:*
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*📅 DÍA:* *${dayRef}*
+*⏰ HORA:* *${time}*
+*✂️ SERVICIO:* *${service}*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+*¡LO ESPERAMOS CON MUCHO GUSTO!* 😊
+*GRACIAS POR ELEGIRNOS* 🙏`;
+    
     window.open(`https://wa.me/${fullPhone}?text=${encodeURIComponent(msg)}`, '_blank');
   }
   
